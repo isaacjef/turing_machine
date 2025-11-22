@@ -8,6 +8,8 @@ Objetivo:
 
 > Dependência utilizada: com.googlecode.json-simple
 
+<img width="392" height="178" alt="image" src="https://github.com/user-attachments/assets/ba0e3d3f-0db5-4bf6-b270-9edc8118c3ba" />
+
 # 📜 Objetivos:
     [  ] **Criar conversor .json em MT; **
     [  ] **Criar classe para leitura das propriedades da Máquina de Turing;**
