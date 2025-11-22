@@ -1,5 +1,7 @@
 # 🚀 Conversor_NFA_em_DFA
-Objetivo: desenvolver um código que receba um arquivo JSON representando um Autômato Finito Não-Determinístico (NFA). O programa deverá ser capaz de converter o NFA em um Autômato Finito Determinístico (DFA)
+Objetivos: 
+- Desenvolver uma Máquina de Turing teórica que aplica a Regra 30 (Rule30) a uma fita.
+- Desenvolver um código que receba um arquivo JSON representando uma Máquina de Turing, contendo o alfabeto, estados e transições da Máquina. O código também pode receber uma fita (entrada), e através da função de transição da Máquina de Turing convertida, deve devolver um saída.
 
 > MAVEN
 
