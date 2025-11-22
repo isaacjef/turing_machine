@@ -1,4 +1,4 @@
-# 🚀 Conversor_NFA_em_DFA
+# 🚀 Rule 30 - Turing Machine 
 Objetivo: 
 - Desenvolver uma Máquina de Turing teórica que aplica a Regra 30 (Rule30) a uma fita.
 - Desenvolver um código que receba um arquivo JSON representando uma Máquina de Turing, contendo o alfabeto, estados e transições da Máquina. O código também pode receber uma fita (entrada), e através da função de transição da Máquina de Turing convertida, deve devolver um saída.
