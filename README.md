@@ -1,18 +1,19 @@
 # 🚀 Conversor_NFA_em_DFA
-Objetivos: 
+Objetivo: 
 - Desenvolver uma Máquina de Turing teórica que aplica a Regra 30 (Rule30) a uma fita.
 - Desenvolver um código que receba um arquivo JSON representando uma Máquina de Turing, contendo o alfabeto, estados e transições da Máquina. O código também pode receber uma fita (entrada), e através da função de transição da Máquina de Turing convertida, deve devolver um saída.
+- O código deve ser bem estruturado, e as saídas devem estar de acordo com o padrão teórico. Ex: (q0, 0) -> (q1, X, R)    
 
 > MAVEN
 
 > Dependência utilizada: com.googlecode.json-simple
 
 # 📜 Objetivos:
-    [ X ] **Criar conversor .json em NFA; **
-    [ X ] **Criar metodo para criação do conjunto das partes;**
-    [ X ] **Criar conversor NFA em DFA.**
-    [ X ] **Fazer tratamento de erros em cada etapa do NFA e DFA para verificar se são válidos**
-    [ X ] **Criar conversor de DFA para .json**
+    [  ] **Criar conversor .json em MT; **
+    [  ] **Criar classe para leitura das propriedades da Máquina de Turing;**
+    [  ] **Criar método para leitura das fitas, de acordo com a MT**
+    [  ] **c**
+    [  ] **c**
 
 # 💾 Status do prjeto
 > :construction: Projeto finalizado :construction:
