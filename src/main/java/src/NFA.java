@@ -139,7 +139,7 @@ public final class NFA implements AutomatoFinito {
             transiction.computeIfAbsent(initial, k -> new HashMap<>())
             .put(simbolo, listaEstadosFinais);
             /*
-             * Explicação: método computeIfAbsent() → Método da interface Map e propõe a obtenção
+             * Explicação: método computeIfAbsent() → Método da interface Map, propõe a obtenção
              * de um valor e caso ele não exista então crie ele primeiro.
              * 
              * .put(...) → método da interface Map e serve para a adicição de um determinado valor

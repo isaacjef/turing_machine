@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.json.simple.JSONArray;
@@ -20,65 +23,86 @@ public class Main {
     @SuppressWarnings("unchecked")
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String diretorioString="";
-        JSONObject jsonObject;
+        String diretorioJson = "tm_rule30.json";
+        JSONObject jsonObject = new JSONObject();
         JSONParser parser = new JSONParser();
         ArrayList<NFA> listaNFA = new ArrayList<>();
-        ArrayList<DFA> listaDFA = new ArrayList<>();
 
         /*
          * Pensei de fazer assim pois dessa forma dá para tratar um possivel erro no diretório
          * fora da classe NFA.
          * Mas também é possivel criar a função dentro da classe NFA passando como parametro o
          * diretório do .json ao invés do JSONObject.
-         * 
-         * Fica a critério qual usaremos.
          */
-        System.out.print("\nInforme o diretório do JSON: ");
-        diretorioString = sc.nextLine();
+        //System.out.print("\nInforme o diretório do JSON: ");
+        //diretorioJson = sc.nextLine();
 
         try {
-            Object objetoJSON = parser.parse(new FileReader(diretorioString));
-            JSONArray listaNFAJsonArray = new JSONArray();
-            int cont=0;
+            Object objetoJSON = parser.parse(new FileReader(diretorioJson));
+            JSONArray listaMTJsonArray = new JSONArray();
             
             if(objetoJSON instanceof JSONArray jSONArray) 
-                listaNFAJsonArray = jSONArray;
+                listaMTJsonArray = jSONArray;
 
             else if(objetoJSON instanceof JSONObject jSONObject)
-                listaNFAJsonArray.add(jSONObject);
+                listaMTJsonArray.add(jSONObject);
             
-            // Itera JSONArray e converte em NFA segundo método definido na própria classe
-            for (Object obj : listaNFAJsonArray) {
+            // Itera JSONArray e converte em MT
+            for (Object obj : listaMTJsonArray) {
                 jsonObject = (JSONObject) obj;
-                NFA nfaExemplo = new NFA();
-                DFA dfaExemplo = new DFA(); 
+                //System.out.println(jsonObject);
+                //NFA nfaExemplo = new NFA();
 
-                //
-                /* Verifica se contém todas as chaves necessárias para ser considerado NFA
-                 * verifica também se não existem chaves a mais no arquivo json
-                 */
-                //chavestestar.containsAll(jsonObject.keySet());
-                nfaExemplo.NFAfromJSON(jsonObject);
-                dfaExemplo.DFAfromNFA(nfaExemplo);
-                dfaExemplo.DFAtoJson(""+cont);
+                //nfaExemplo.NFAfromJSON(jsonObject);
 
-                listaNFA.add(nfaExemplo);
-                listaDFA.add(dfaExemplo);
+                //listaNFA.add(nfaExemplo);
             }
+
+            // ----------------------------- TESTES ------------------------------
+            //ArrayList<String> teste_states = new ArrayList<>((JSONArray) jsonObject.get("states"));
+            //System.out.print(teste_states);
+
+            ArrayList<String> transiction = new ArrayList<>((JSONArray) jsonObject.get("transiction"));
+            //Object teste = jsonObject.get("transiction");
+
+            Map<String, Map<String, List<String>>> map = new HashMap<>();
+            Map<String, List<String>> i_map = new HashMap<>();
+            for (Object objRegra : transiction) {
+    
+                JSONObject regra = (JSONObject) objRegra;
+                String state = regra.get("initial").toString();
+                String symbol = regra.get("symbol").toString();
+                ArrayList<String> in_tape = new ArrayList<>();
+                in_tape.add(regra.get("end").toString());
+                in_tape.addAll((ArrayList<String>) regra.get("in_tape"));
+                in_tape.addAll((ArrayList<String>) regra.get("out_tape"));
+
+                i_map.put(symbol, in_tape);
+                map.put(state, i_map);
+
+                System.out.println(map.get("q1"));
+                System.out.println(state);
+                //System.out.println(symbol);
+                System.out.print(in_tape);
+            }
+
+            TuringMachine mt = new TuringMachine();
+            //mt.setInput_symbols((JSONArray) jsonObject.get("input_symbols"));
+            //System.out.print(mt.getInput_symbols());
+
+            //transiction.forEach(s -> {
+            //    System.out.println(s);
+            //});
 
             for(int i=0; i < listaNFA.size(); i++){
                 System.out.printf("\n========= NFA %d =========\n", i+1);
                 System.out.print(listaNFA.get(i));
-
-                System.out.printf("\n========= DFA %d =========\n", i+1);
-                System.out.print(listaDFA.get(i));
             }
 
         } catch (FileNotFoundException f) {
 
-            System.out.print("O diretório: \"" + diretorioString + "\" não foi encontrado.\n" +
-            "Deseja tentar outro?(S | N): ");
+            System.out.print("O diretório: \"" + diretorioJson + "\" não foi encontrado.\n" +
+            "Deseja tentar outro? (S | N): ");
             
             switch (sc.nextLine().toUpperCase()) {
                 case "S" -> {
@@ -97,32 +121,19 @@ public class Main {
                     //main(args);
                 }
             } 
-
         } catch (IndexOutOfBoundsException e) {
-
             System.out.println("\nMensagem de erro:\nNão é um arquivo de json válido!");
-            System.out.printf("O formato do \"%s\" não segue o padrão estabelecido\n\n", diretorioString);
-
+            System.out.printf("O formato do \"%s\" não segue o padrão estabelecido\n\n", diretorioJson);
         } catch (IOException e) {
             System.out.print("Erro de entrada! -> " + e);
-            
         } catch (ParseException e) {
             System.out.print("Erro na conversão do arquivo! Arquivo JSON inválido! -> " + e);
-            
-        } catch (ClassCastException e) {
-            System.out.print("Erro na conversão do arquivo! Algum campo do arquivo não segue o padrão definido. -> " + e);
-            
-        }catch (Exception e) {
-
-            System.out.print("Não sei qual erro!");
-
+        //} catch (ClassCastException e) {
+            //System.out.print("Erro na conversão do arquivo! Algum campo do arquivo não segue o padrão definido. -> " + e);
+        //}catch (Exception e) {
+           // System.out.print("Não sei qual erro!");
         } finally {
             sc.close(); 
         }
     }
 }
-
-/**
- *
- * @author Gabriel Alexandre
- */

@@ -10,12 +10,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 public final class DFA implements AutomatoFinito {
@@ -226,7 +226,7 @@ public final class DFA implements AutomatoFinito {
         
         FileWriter writeFile = null;
 
-        Map<String, Object> dfaMap = new LinkedHashMap();
+        Map<String, Object> dfaMap = new LinkedHashMap<>();
         
         dfaMap.put("alphabet", this.getAlphabet());
         dfaMap.put("states", this.states);
