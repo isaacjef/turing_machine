@@ -9,15 +9,15 @@ import java.util.Map;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public final class TuringMachine implements ITuringMachine {
+public final class TuringMachine extends ATM {
     
-    private ArrayList<String> states = new ArrayList<>();
+    //private ArrayList<String> states = new ArrayList<>();
     private ArrayList<String> input_symbols = new ArrayList<>();
     private ArrayList<String> tape_symbols = new ArrayList<>();
     private String initial_state="";
     private String blank_symbol="";
-    private ArrayList<String> end_states = new ArrayList<>();
-    private Map<String, Map<String, List<String>>> transiction = new HashMap<>();
+    //private ArrayList<String> end_states = new ArrayList<>();
+    //private Map<String, Map<String, List<String>>> transiction = new HashMap<>();
 
     public TuringMachine(ArrayList<String> states,
                ArrayList<String> input_symbols,
@@ -61,47 +61,110 @@ public final class TuringMachine implements ITuringMachine {
                 System.out.println("Erro na conversão do NFA -> " + e);
 
                 // Inicializando NFA com valores vazios:
-                this.states = new ArrayList<>();
+                setStates(new ArrayList<>());
                 this.input_symbols = new ArrayList<>();
                 this.tape_symbols = new ArrayList<>();
                 this.initial_state="";
                 this.blank_symbol="";
-                this.end_states = new ArrayList<>();
-                this.transiction = new HashMap<>();
+                setEnd_states(new ArrayList<>());;
+                setTransiction(new HashMap<>());
             }
         } else
             throw new IndexOutOfBoundsException();
     }
 
-    @Override
-    public ArrayList<String> getStates() {
-        return new ArrayList<>(this.states);
+        public Map<String, Map<String, List<String>>> define_transiction(JSONArray jsonArray) {
+
+        Map<String, Map<String, List<String>>> transiction = new HashMap<>();
+
+        for (Object objRegra : jsonArray) {
+
+            JSONObject regra = (JSONObject) objRegra;
+            String initial = (String) regra.get("initial");
+            String simbolo = (String) regra.get("symbol");
+            String end = regra.get("end").toString();
+            ArrayList<String> input_tape = (ArrayList<String>) regra.get("in_tape");
+            ArrayList<String> output_tape = (ArrayList<String>) regra.get("out_tape");
+
+            // tuple = [end, in_tape, out_tape] = ["q0", "0", "R", "#", "R"]
+            ArrayList<String> tuples = new ArrayList<>();
+            tuples.add(end);
+            tuples.addAll(input_tape);
+            tuples.addAll(output_tape);
+            //System.out.println(tuples);
+
+            List<String> movements = new ArrayList<>();
+
+            for (Object mov : tuples) {
+                // Verifica se mov é não nulo: []
+
+                if (mov != null && !"null".equals(mov.toString())) {
+                    movements.add(mov.toString());
+                    //System.out.print("initial: " + initial + " | symbol: " + simbolo + " ");
+                    //System.out.println("Movement ->" + movements);
+
+                    //if(!this.getStates().contains((String) mov))
+                        //throw new IllegalArgumentException("Estado(s) final(is) não está contido nos Estados do NFA. ");
+                }
+            }
+
+            transiction.computeIfAbsent(initial, k -> new HashMap<>())
+            .put(simbolo, movements);
+        }
+
+        return transiction;
     }
 
-    @Override
-    public void setStates(Object states) {
-        // Verifica se todos os elementos são do tipo String
-        if (states instanceof List){
-            ArrayList<?> states0 = (ArrayList<?>) states;
-            int cont=0;
-            for (Object percorrer : states0)
-                if(percorrer instanceof String)
-                    cont++;
-            if(cont == states0.size())
-                this.states = (ArrayList<String>) states0;
-            else
-                throw new IllegalArgumentException("Estado não é do tipo String!");
-        } else {
-            throw new IllegalArgumentException("Estado(s) inválido(s)! ");
+    // Finite control -> read_write_tape
+    public void finite_control(JSONArray jsonArray, String input) {
+
+        int i = 2;
+        int ipt = input.length();
+
+        String output = "#####";
+        input = "##" + input + "##";
+        String actual_state = "q0"; // this.initial_state
+        // A verificação sempre iniciará na posição 2 das strings: ##_...
+        char actual_symbol = input.charAt(i); // símbolo atual lido na fita de entrada
+
+        Map<String, Map<String, List<String>>> transiction = define_transiction(jsonArray);
+
+
+
+        while (ipt != 0) {
+
+            //["q0", "0", "L", "#", "R"]
+            List<String> tuple = transiction.get(actual_state).get("" + actual_symbol);
+            System.out.printf("(%s,%s) -> \n", actual_state, actual_symbol);
+
+            for (int j = 0; j < 4; j++) {
+                // L -> -1 ; R -> +1 ---- 2 1 2 3; 3 2 3 4; 4 3 4 5; ...
+                if (tuple.get(2).equals("L")) {
+                    i -= 1;
+                    actual_state = tuple.get(0);
+                    actual_symbol = input.charAt(i);
+                    tuple = transiction.get(actual_state).get("" + actual_symbol);
+
+                    System.out.printf("L:(%s,%s) -> \n", actual_state, actual_symbol);
+                } else {
+                    i += 1;
+
+                    actual_state = tuple.get(0);
+                    actual_symbol = input.charAt(i);
+                    tuple = transiction.get(actual_state).get("" + actual_symbol);
+                    
+                    System.out.printf("R:(%s,%s) -> \n", actual_state, actual_symbol);
+                }
+            }
+
+            ipt--;
         }
     }
 
-    @Override
     public ArrayList<String> getInput_symbols(){
         return new ArrayList<>(this.input_symbols);
     }
 
-    @Override
     public void setInput_symbols(Object input_symbols){
         if (input_symbols instanceof List){
             ArrayList<?> i_symbols = (ArrayList<?>) input_symbols;
@@ -120,12 +183,10 @@ public final class TuringMachine implements ITuringMachine {
         }
     }
     
-    @Override
     public ArrayList<String> getTape_symbols(){
         return new ArrayList<>(this.tape_symbols);
     }
 
-    @Override
     public void setTape_symbols(Object tape_symbols){
         if (tape_symbols instanceof List){
             ArrayList<?> t_symbols = (ArrayList<?>) tape_symbols;
@@ -144,12 +205,10 @@ public final class TuringMachine implements ITuringMachine {
         }
     }
 
-    @Override
     public String getInitial_state() {
         return "" + this.initial_state;
     }
 
-    @Override
     public void setInitial_state(Object initial_state) {
         if(initial_state instanceof String i_state) {
             if(this.getStates().contains(i_state))
@@ -160,12 +219,10 @@ public final class TuringMachine implements ITuringMachine {
             throw new IllegalArgumentException("Estado inicial inválido! Não é do tipo String. ");
     }
 
-    @Override
     public String getBlank_symbol() {
         return "" + this.blank_symbol;
     }
 
-    @Override
     public void setBlank_symbol(Object blank_symbol) {
         if(blank_symbol instanceof String symbol) {
             if(this.getStates().contains(symbol))
@@ -175,28 +232,4 @@ public final class TuringMachine implements ITuringMachine {
         } else
             throw new IllegalArgumentException("Símbolo branco inválido! Não é do tipo String. ");
     }
-
-    @Override
-    public ArrayList<String> getEnd_states() {
-        return new ArrayList<>(this.end_states);
-    }
-
-    @Override
-    public void setEnd_states(Object end_states) {
-        if (end_states instanceof List){
-            ArrayList<?> end_state0 = (ArrayList<?>) end_states;
-            int cont=0;
-            for (Object percorrer : end_state0)
-                if(percorrer instanceof String string)
-                    if(this.getStates().contains(string))
-                        cont++;
-            if(cont==end_state0.size()){
-                this.end_states = (ArrayList<String>) end_state0;
-            } else
-                throw new IllegalArgumentException("Estados finais não contidos no conjunto de Estados!");
-        } else {
-            throw new IllegalArgumentException("Estado(s) final(is) inválido(s)! ");
-        }
-    }
-
 }

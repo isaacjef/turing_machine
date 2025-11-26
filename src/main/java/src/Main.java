@@ -4,9 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import org.json.simple.JSONArray;
@@ -65,28 +62,32 @@ public class Main {
             ArrayList<String> transiction = new ArrayList<>((JSONArray) jsonObject.get("transiction"));
             //Object teste = jsonObject.get("transiction");
 
-            Map<String, Map<String, List<String>>> map = new HashMap<>();
-            Map<String, List<String>> i_map = new HashMap<>();
-            for (Object objRegra : transiction) {
+            // Map<String, Map<String, List<String>>> map = new HashMap<>();
+            // Map<String, List<String>> i_map = new HashMap<>();
+            // for (Object objRegra : transiction) {
     
-                JSONObject regra = (JSONObject) objRegra;
-                String state = regra.get("initial").toString();
-                String symbol = regra.get("symbol").toString();
-                ArrayList<String> in_tape = new ArrayList<>();
-                in_tape.add(regra.get("end").toString());
-                in_tape.addAll((ArrayList<String>) regra.get("in_tape"));
-                in_tape.addAll((ArrayList<String>) regra.get("out_tape"));
+            //     JSONObject regra = (JSONObject) objRegra;
+            //     String state = regra.get("initial").toString();
+            //     String symbol = regra.get("symbol").toString();
+            //     ArrayList<String> in_tape = new ArrayList<>();
+            //     in_tape.add(regra.get("end").toString());
+            //     in_tape.addAll((ArrayList<String>) regra.get("in_tape"));
+            //     in_tape.addAll((ArrayList<String>) regra.get("out_tape"));
 
-                i_map.put(symbol, in_tape);
-                map.put(state, i_map);
+            //     i_map.put(symbol, in_tape);
+            //     map.put(state, i_map);
 
-                System.out.println(map.get("q1"));
-                System.out.println(state);
-                //System.out.println(symbol);
-                System.out.print(in_tape);
-            }
+            //     System.out.println(map.get("q1"));
+            //     System.out.println(state);
+            //     //System.out.println(symbol);
+            //     System.out.println(in_tape.get(2));
+            // }
 
+
+            JSONArray movArray = (JSONArray) jsonObject.get("transiction");
             TuringMachine mt = new TuringMachine();
+            //System.out.println(mt.define_transiction(movArray));
+            mt.finite_control(movArray, "0");
             //mt.setInput_symbols((JSONArray) jsonObject.get("input_symbols"));
             //System.out.print(mt.getInput_symbols());
 
@@ -122,7 +123,7 @@ public class Main {
                 }
             } 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\nMensagem de erro:\nNão é um arquivo de json válido!");
+            System.out.println("\nMensagem de erro: " + e.getMessage() +" \nNão é um arquivo de json válido!");
             System.out.printf("O formato do \"%s\" não segue o padrão estabelecido\n\n", diretorioJson);
         } catch (IOException e) {
             System.out.print("Erro de entrada! -> " + e);

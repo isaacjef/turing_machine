@@ -18,7 +18,7 @@ import java.util.Set;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 
-public final class DFA implements AutomatoFinito {
+public final class DFA {
 
     //Declaração dos atributos do DFA
     private ArrayList<String> alphabet = new ArrayList<>();
@@ -363,13 +363,11 @@ public final class DFA implements AutomatoFinito {
     /*
      * Divisão do código para gets e seters
      */
-    @Override
     public ArrayList<String> getAlphabet(){
         return new ArrayList<>(this.alphabet);
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public void setAlphabet(Object alphabet) {
 
         // Verificações condicionais para tudo, garantido tipagem correta dos valores
@@ -388,13 +386,11 @@ public final class DFA implements AutomatoFinito {
         }
     }
 
-    @Override
     public ArrayList<String> getEnd_state() {
         return new ArrayList<>(this.end_state);
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public void setEnd_state(Object end_state) {
         // Verificações condicionais para tudo, garantido tipagem correta dos valores
         if (end_state instanceof List){
@@ -412,13 +408,11 @@ public final class DFA implements AutomatoFinito {
         }
     }
 
-    @Override
     public ArrayList<String> getStates() {
         return new ArrayList<>(this.states);
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public void setStates(Object states) {
         /*
          * Nota: É de extrema importancia que esta função não seja modificada
@@ -443,12 +437,10 @@ public final class DFA implements AutomatoFinito {
         }
     }
 
-    @Override
     public String getInitial_state() {
         return this.initial_state;
     }
 
-    @Override
     public void setInitial_state(Object initial_state) {
         if(initial_state instanceof String string) {
             this.initial_state = string;

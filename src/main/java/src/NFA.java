@@ -9,7 +9,7 @@ import java.util.Map;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-public final class NFA implements AutomatoFinito {
+public final class NFA{
 
     //Declaração dos atributos do NFA
     private ArrayList<String> alphabet = new ArrayList<>();
@@ -163,13 +163,10 @@ public final class NFA implements AutomatoFinito {
     /*
      * Divisão do código para gets e seters
      */
-    @Override
     public ArrayList<String> getAlphabet(){
         return new ArrayList<>(this.alphabet);
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
     public void setAlphabet(Object alphabet){
         // Verificações condicionais para tudo, garantido tipagem correta dos valores
         if (alphabet instanceof List){
@@ -191,13 +188,10 @@ public final class NFA implements AutomatoFinito {
         }
     }
 
-    @Override
     public ArrayList<String> getEnd_state() {
         return new ArrayList<>(this.end_state);
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
     public void setEnd_state(Object end_state) {
 
         // Verificações condicionais para tudo, garantido tipagem correta dos valores
@@ -218,13 +212,11 @@ public final class NFA implements AutomatoFinito {
         }
     }
 
-    @Override
     public ArrayList<String> getStates() {
         return new ArrayList<>(this.states);
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
+
     public void setStates(Object states) {
         // Verificações condicionais para tudo, garantido tipagem correta dos valores
         if (states instanceof List){
@@ -242,12 +234,12 @@ public final class NFA implements AutomatoFinito {
         }
     }
 
-    @Override
+
     public String getInitial_state() {
         return "" + this.initial_state;
     }
 
-    @Override
+  
     public void setInitial_state(Object initial_state) {
         if(initial_state instanceof String string) {
             if(this.getStates().contains(string))
