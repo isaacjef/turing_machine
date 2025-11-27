@@ -8,6 +8,10 @@ import java.util.Map;
 public abstract  class ATM {
 
     private ArrayList<String> states = new ArrayList<>();
+    private ArrayList<String> input_symbols = new ArrayList<>();
+    private ArrayList<String> tape_symbols = new ArrayList<>();
+    private String initial_state;
+    private String blank_symbol;
     private ArrayList<String> end_states = new ArrayList<>();
     private Map<String, Map<String, List<String>>> transiction = new HashMap<>();
 
@@ -32,19 +36,85 @@ public abstract  class ATM {
         }
     }
 
-    //public void setStates(Object param);
+    public ArrayList<String> getInput_symbols() {
+        return new ArrayList<>(this.input_symbols);
+    }
 
-    //public ArrayList<String> getInput_symbols();
-   // public void setInput_symbols(Object param);
+    public void setInput_symbols(Object input_symbols) {
+        if (input_symbols instanceof List) {
+            ArrayList<?> i_symbols = (ArrayList<?>) input_symbols;
+            int cont = 0;
+            for (Object percorrer : i_symbols) {
+                if (percorrer instanceof String) {
+                    cont++;
+                } else {
+                    throw new IllegalArgumentException("Símbolo(s) de entrada inválido(s)! Não são do tipo String. ");
+                }
+            }
 
-    //public ArrayList<String> getTape_symbols();
-    //public void setTape_symbols(Object param);
+            if (cont == i_symbols.size()) {
+                this.input_symbols = (ArrayList<String>) i_symbols;
+            }
+        } else {
+            throw new IllegalArgumentException("Alfabeto inválido!  ");
+        }
+    }
 
-    //public String getInitial_state();
-    //public void setInitial_state(Object param);
+    public ArrayList<String> getTape_symbols() {
+        return new ArrayList<>(this.tape_symbols);
+    }
 
-    //public String getBlank_symbol();
-    //public void setBlank_symbol(Object param);
+    public void setTape_symbols(Object tape_symbols) {
+        if (tape_symbols instanceof List) {
+            ArrayList<?> t_symbols = (ArrayList<?>) tape_symbols;
+            int cont = 0;
+            for (Object percorrer : t_symbols) {
+                if (percorrer instanceof String) {
+                    cont++;
+                } else {
+                    throw new IllegalArgumentException("Símbolo(s) de entrada inválido(s)! Não são do tipo String. ");
+                }
+            }
+
+            if (cont == t_symbols.size()) {
+                this.tape_symbols = (ArrayList<String>) t_symbols;
+            }
+        } else {
+            throw new IllegalArgumentException("Alfabeto inválido!  ");
+        }
+    }
+
+    public String getInitial_state() {
+        return "" + this.initial_state;
+    }
+
+    public void setInitial_state(Object initial_state) {
+        if (initial_state instanceof String i_state) {
+            if (this.getStates().contains(i_state)) {
+                this.initial_state = i_state;
+            } else {
+                throw new IllegalArgumentException("Estado inicial não existente na MT! ");
+            }
+        } else {
+            throw new IllegalArgumentException("Estado inicial inválido! Não é do tipo String. ");
+        }
+    }
+
+    public String getBlank_symbol() {
+        return "" + this.blank_symbol;
+    }
+
+    public void setBlank_symbol(Object blank_symbol) {
+        if (blank_symbol instanceof String symbol) {
+            if (this.getStates().contains(symbol)) {
+                this.blank_symbol = symbol;
+            } else {
+                throw new IllegalArgumentException("Símbolo branco não existente na MT! ");
+            }
+        } else {
+            throw new IllegalArgumentException("Símbolo branco inválido! Não é do tipo String. ");
+        }
+    }
 
     public ArrayList<String> getEnd_states() {
         return new ArrayList<>(this.end_states);

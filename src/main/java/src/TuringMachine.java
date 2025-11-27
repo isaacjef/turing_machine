@@ -10,22 +10,22 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public final class TuringMachine extends ATM {
-    
+
     //private ArrayList<String> states = new ArrayList<>();
-    private ArrayList<String> input_symbols = new ArrayList<>();
-    private ArrayList<String> tape_symbols = new ArrayList<>();
-    private String initial_state="";
-    private String blank_symbol="";
+    //private ArrayList<String> input_symbols = new ArrayList<>();
+    //private ArrayList<String> tape_symbols = new ArrayList<>();
+    //private String initial_state = "";
+    //private String blank_symbol = "";
     //private ArrayList<String> end_states = new ArrayList<>();
     //private Map<String, Map<String, List<String>>> transiction = new HashMap<>();
 
     public TuringMachine(ArrayList<String> states,
-               ArrayList<String> input_symbols,
-               ArrayList<String> tape_symbols,
-               String initial_state,
-               String blank_symbol,
-               ArrayList<String> end_states,
-               Map<String, Map<String, List<String>>> transiction) {
+            ArrayList<String> input_symbols,
+            ArrayList<String> tape_symbols,
+            String initial_state,
+            String blank_symbol,
+            ArrayList<String> end_states,
+            Map<String, Map<String, List<String>>> transiction) {
         setStates(states);
         setInput_symbols(input_symbols);
         setTape_symbols(tape_symbols);
@@ -38,42 +38,43 @@ public final class TuringMachine extends ATM {
     // Inicializar a MT vazia.
     public TuringMachine() {
     }
-    
+
     /*
      * Função de conversão JSONObject para classe MT
      * @param JSONObject
      */
     public void MTfromJSON(JSONObject json) {
-        
+
         // Caso de haver garantia na tipagem do json não se faz necessário corrigir
         List<String> chavestestar = Arrays.asList("states", "input_symbols", "tape_symbols", "initial_state", "blank_symbol", "end_states", "transiction");
-        
+
         if (json.keySet().containsAll(chavestestar) && chavestestar.containsAll(json.keySet())) {
-            try{
+            try {
                 setStates(new ArrayList<>((JSONArray) json.get("states")));
                 setInput_symbols(new ArrayList<>((JSONArray) json.get("input_symbols")));
                 setTape_symbols(new ArrayList<>((JSONArray) json.get("tape_symbols")));
                 setInitial_state((String) json.get("initial_state"));
                 setBlank_symbol((String) json.get("blank_symbol"));
                 setEnd_states(new ArrayList<>((JSONArray) json.get("end_states")));
-                //setTransiction(parametrizarTransiction((JSONArray) json.get("transiction")));
+                setTransiction(define_transiction((JSONArray) json.get("transiction")));
             } catch (IllegalArgumentException e) {
                 System.out.println("Erro na conversão do NFA -> " + e);
 
                 // Inicializando NFA com valores vazios:
                 setStates(new ArrayList<>());
-                this.input_symbols = new ArrayList<>();
-                this.tape_symbols = new ArrayList<>();
-                this.initial_state="";
-                this.blank_symbol="";
-                setEnd_states(new ArrayList<>());;
+                setInput_symbols(new ArrayList<>());
+                setTape_symbols(new ArrayList<>());
+                setInitial_state("");
+                setBlank_symbol("");
+                setEnd_states(new ArrayList<>());
                 setTransiction(new HashMap<>());
             }
-        } else
+        } else {
             throw new IndexOutOfBoundsException();
+        }
     }
 
-        public Map<String, Map<String, List<String>>> define_transiction(JSONArray jsonArray) {
+    public Map<String, Map<String, List<String>>> define_transiction(JSONArray jsonArray) {
 
         Map<String, Map<String, List<String>>> transiction = new HashMap<>();
 
@@ -104,12 +105,12 @@ public final class TuringMachine extends ATM {
                     //System.out.println("Movement ->" + movements);
 
                     //if(!this.getStates().contains((String) mov))
-                        //throw new IllegalArgumentException("Estado(s) final(is) não está contido nos Estados do NFA. ");
+                    //throw new IllegalArgumentException("Estado(s) final(is) não está contido nos Estados do NFA. ");
                 }
             }
 
             transiction.computeIfAbsent(initial, k -> new HashMap<>())
-            .put(simbolo, movements);
+                    .put(simbolo, movements);
         }
 
         return transiction;
@@ -121,7 +122,7 @@ public final class TuringMachine extends ATM {
         int i = 2;
         int ipt = input.length();
 
-        String output = "#####";
+        String output = "" ;
         input = "##" + input + "##";
         String actual_state = "q0"; // this.initial_state
         // A verificação sempre iniciará na posição 2 das strings: ##_...
@@ -129,15 +130,13 @@ public final class TuringMachine extends ATM {
 
         Map<String, Map<String, List<String>>> transiction = define_transiction(jsonArray);
 
-
-
         while (ipt != 0) {
 
             //["q0", "0", "L", "#", "R"]
             List<String> tuple = transiction.get(actual_state).get("" + actual_symbol);
-            System.out.printf("(%s,%s) -> \n", actual_state, actual_symbol);
+            System.out.printf("(%s,%s) -> ", actual_state, actual_symbol);
 
-            for (int j = 0; j < 4; j++) {
+            for (int j = 0; j <= 4; j++) {
                 // L -> -1 ; R -> +1 ---- 2 1 2 3; 3 2 3 4; 4 3 4 5; ...
                 if (tuple.get(2).equals("L")) {
                     i -= 1;
@@ -145,91 +144,30 @@ public final class TuringMachine extends ATM {
                     actual_symbol = input.charAt(i);
                     tuple = transiction.get(actual_state).get("" + actual_symbol);
 
-                    System.out.printf("L:(%s,%s) -> \n", actual_state, actual_symbol);
+                    //System.out.printf("L \n(%s,%s) -> ", actual_state, actual_symbol);
                 } else {
                     i += 1;
 
                     actual_state = tuple.get(0);
                     actual_symbol = input.charAt(i);
                     tuple = transiction.get(actual_state).get("" + actual_symbol);
-                    
-                    System.out.printf("R:(%s,%s) -> \n", actual_state, actual_symbol);
+
+                    //System.out.printf("R \n(%s,%s) -> ", actual_state, actual_symbol);
+                }
+
+                if (actual_state.equals("q6") || actual_state.equals("q13")) {
+                    output += tuple.get(3);
+                } else if (actual_state.equals("q7") || actual_state.equals("q14")) {
+                    output += tuple.get(3);
                 }
             }
 
+            System.out.printf("Out: ##%s##", output);
+            System.out.print("\n");
             ipt--;
         }
-    }
 
-    public ArrayList<String> getInput_symbols(){
-        return new ArrayList<>(this.input_symbols);
-    }
-
-    public void setInput_symbols(Object input_symbols){
-        if (input_symbols instanceof List){
-            ArrayList<?> i_symbols = (ArrayList<?>) input_symbols;
-            int cont=0;
-            for (Object percorrer : i_symbols){
-                if(percorrer instanceof String)
-                    cont++;
-                else 
-                    throw new IllegalArgumentException("Símbolo(s) de entrada inválido(s)! Não são do tipo String. ");
-            }
-
-            if(cont == i_symbols.size())
-                this.input_symbols = (ArrayList<String>) i_symbols;
-        } else {
-            throw new IllegalArgumentException("Alfabeto inválido!  ");
-        }
-    }
-    
-    public ArrayList<String> getTape_symbols(){
-        return new ArrayList<>(this.tape_symbols);
-    }
-
-    public void setTape_symbols(Object tape_symbols){
-        if (tape_symbols instanceof List){
-            ArrayList<?> t_symbols = (ArrayList<?>) tape_symbols;
-            int cont=0;
-            for (Object percorrer : t_symbols){
-                if(percorrer instanceof String)
-                    cont++;
-                else 
-                    throw new IllegalArgumentException("Símbolo(s) de entrada inválido(s)! Não são do tipo String. ");
-            }
-
-            if(cont == t_symbols.size())
-                this.tape_symbols = (ArrayList<String>) t_symbols;
-        } else {
-            throw new IllegalArgumentException("Alfabeto inválido!  ");
-        }
-    }
-
-    public String getInitial_state() {
-        return "" + this.initial_state;
-    }
-
-    public void setInitial_state(Object initial_state) {
-        if(initial_state instanceof String i_state) {
-            if(this.getStates().contains(i_state))
-                this.initial_state = i_state;
-            else
-                throw new IllegalArgumentException("Estado inicial não existente na MT! ");
-        } else
-            throw new IllegalArgumentException("Estado inicial inválido! Não é do tipo String. ");
-    }
-
-    public String getBlank_symbol() {
-        return "" + this.blank_symbol;
-    }
-
-    public void setBlank_symbol(Object blank_symbol) {
-        if(blank_symbol instanceof String symbol) {
-            if(this.getStates().contains(symbol))
-                this.blank_symbol = symbol;
-            else
-                throw new IllegalArgumentException("Símbolo branco não existente na MT! ");
-        } else
-            throw new IllegalArgumentException("Símbolo branco inválido! Não é do tipo String. ");
+        //output = String.format("##%s##", output);
+        //System.out.println("Out: " + output);
     }
 }
