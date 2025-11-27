@@ -32,7 +32,7 @@ public final class TuringMachine extends ATM {
         setInitial_state(initial_state);
         setBlank_symbol(blank_symbol);
         setEnd_states(end_states);
-        // setTransiction(transiction);
+        setTransiction(transiction);
     }
 
     // Inicializar a MT vazia.
