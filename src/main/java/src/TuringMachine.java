@@ -110,7 +110,7 @@ public final class TuringMachine extends ATM {
             }
 
             transiction.computeIfAbsent(initial, k -> new HashMap<>())
-                    .put(simbolo, movements);
+                .put(simbolo, movements);
         }
 
         return transiction;
@@ -124,15 +124,15 @@ public final class TuringMachine extends ATM {
 
         String output = "" ;
         input = "##" + input + "##";
-        String actual_state = "q0"; // this.initial_state
-        // A verificação sempre iniciará na posição 2 das strings: ##_...
+        String actual_state = this.getInitial_state();
+        // A verificação sempre iniciará na posição 2 das strings: ##_...##
         char actual_symbol = input.charAt(i); // símbolo atual lido na fita de entrada
 
         Map<String, Map<String, List<String>>> transiction = define_transiction(jsonArray);
 
         while (ipt != 0) {
 
-            //["q0", "0", "L", "#", "R"]
+            // (q0, 1) -> ["q1", "1", "L", "#", "R"]
             List<String> tuple = transiction.get(actual_state).get("" + actual_symbol);
             System.out.printf("(%s,%s) -> ", actual_state, actual_symbol);
 
@@ -169,5 +169,35 @@ public final class TuringMachine extends ATM {
 
         //output = String.format("##%s##", output);
         //System.out.println("Out: " + output);
+    }
+
+        @Override
+    public String toString() {
+
+        StringBuilder text = new StringBuilder();
+
+        //text.append("========= NFA =========\n"); //Adicionar titulo do NFA do for de leitura
+        text.append("Estados: ").append(this.getStates()).append("\n");
+        text.append("Símbolos de Entrada: ").append(this.getInput_symbols()).append("\n");
+        text.append("Símbolos de fita: ").append(this.getTape_symbols()).append("\n");
+        text.append("Transições:\n");
+        text.append("------------------------\n");
+        /*
+         * Aninha todos os pares ESTADO, SIMBOLO → ESTADOS de forma ter uma melhor visualização
+         */ //.sorted(Map.Entry.comparingByKey())
+        this.getTransiction().entrySet().stream()
+        .forEach(entry -> {
+            entry.getValue().entrySet().stream().sorted(Map.Entry.comparingByKey())
+            .forEach(trans -> {
+                String saida = trans.getValue().isEmpty() ? "null" : trans.getValue().toString();
+                text.append(String.format("| (%s, %s) | %s\n", entry.getKey(), trans.getKey(), saida));});
+        });
+        text.append("\r------------------------\n");
+        text.append("Estado Inicial: ").append(this.getInitial_state()).append("\n");
+        text.append("Símbolo branco: ").append(this.getBlank_symbol()).append("\n");
+        text.append("Estados Finais: ").append(this.getEnd_states()).append("\n");        
+        text.append("========================\n\n");
+
+        return text.toString();
     }
 }

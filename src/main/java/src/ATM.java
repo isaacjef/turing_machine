@@ -106,7 +106,7 @@ public abstract  class ATM {
 
     public void setBlank_symbol(Object blank_symbol) {
         if (blank_symbol instanceof String symbol) {
-            if (this.getStates().contains(symbol)) {
+            if (this.getTape_symbols().contains(symbol)) {
                 this.blank_symbol = symbol;
             } else {
                 throw new IllegalArgumentException("Símbolo branco não existente na MT! ");

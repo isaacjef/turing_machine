@@ -12,12 +12,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class Main {
-
-    /*
-     *  Função principal de execução
-     *
-     */
-
     @SuppressWarnings("unchecked")
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -55,8 +49,6 @@ public class Main {
             }
 
             // ----------------------------- TESTES ------------------------------
-            //ArrayList<String> teste_states = new ArrayList<>((JSONArray) jsonObject.get("states"));
-            //System.out.print(teste_states);
             ArrayList<String> transiction = new ArrayList<>((JSONArray) jsonObject.get("transiction"));
             //Object teste = jsonObject.get("transiction");
 
@@ -77,16 +69,18 @@ public class Main {
             //     //System.out.println(symbol);
             //     System.out.println(in_tape.get(2));
             // }
+            //String state = jsonObject.get("initial_state").toString();
             JSONArray movArray = (JSONArray) jsonObject.get("transiction");
             TuringMachine mt = new TuringMachine();
-            //System.out.println(mt.define_transiction(movArray));
-            mt.finite_control(movArray, "0111100");
-            //mt.setInput_symbols((JSONArray) jsonObject.get("input_symbols"));
-            //System.out.print(mt.getInput_symbols());
+            mt.MTfromJSON(jsonObject);
+            mt.finite_control(movArray, "000100");
+
 
             //transiction.forEach(s -> {
             //    System.out.println(s);
             //});
+
+            System.out.print(mt.toString());
             for (int i = 0; i < listaNFA.size(); i++) {
                 System.out.printf("\n========= NFA %d =========\n", i + 1);
                 System.out.print(listaNFA.get(i));
