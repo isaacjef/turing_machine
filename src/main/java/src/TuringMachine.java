@@ -3,6 +3,7 @@ package src;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -67,7 +68,7 @@ public final class TuringMachine extends ATM {
                 setInitial_state("");
                 setBlank_symbol("");
                 setEnd_states(new ArrayList<>());
-                setTransiction(new HashMap<>());
+                setTransiction(new LinkedHashMap<>());
             }
         } else {
             throw new IndexOutOfBoundsException();
@@ -76,7 +77,7 @@ public final class TuringMachine extends ATM {
 
     public Map<String, Map<String, List<String>>> define_transiction(JSONArray jsonArray) {
 
-        Map<String, Map<String, List<String>>> transiction = new HashMap<>();
+        Map<String, Map<String, List<String>>> transiction = new LinkedHashMap<>();
 
         for (Object objRegra : jsonArray) {
 

@@ -1,7 +1,7 @@
 package src;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +13,7 @@ public abstract  class ATM {
     private String initial_state;
     private String blank_symbol;
     private ArrayList<String> end_states = new ArrayList<>();
-    private Map<String, Map<String, List<String>>> transiction = new HashMap<>();
+    private Map<String, Map<String, List<String>>> transiction = new LinkedHashMap<>();
 
     public ArrayList<String> getStates() {
         return new ArrayList<>(this.states);
