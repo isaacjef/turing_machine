@@ -28,7 +28,7 @@ Objetivo:
      │           └── java
      |                └── src
      |                    ├── ATM.java
-     |                    ├── App.jav
+     |                    ├── App.java
      |                    ├── TuringMachine.java
      |                    └── Main.java
      ├── target
