@@ -22,22 +22,19 @@ Objetivo:
 
 # 📦 Disposição do programa
      .
-     ├── conversor_nfa_dfa
+     ├── turing_machine
      │   └── src
      │       └── main
      │           └── java
      |                └── src
-     |                    ├── AutomatoFinito.java
-     |                    ├── DFA.java
-     |                    ├── NFA.java
+     |                    ├── ATM.java
+     |                    ├── App.jav
+     |                    ├── TuringMachine.java
      |                    └── Main.java
      ├── target
      ├── README.md
      ├── pom.xml
-     └── exemplo.json
-        ├── blackjack_test.exs
-        └── test_helper.exs
-    
+     └── tm_rule30.json
      .
 
 # 🔧 Principais Funções
