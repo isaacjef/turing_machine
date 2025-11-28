@@ -27,6 +27,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class App {
     public static void main(String[] args) {
+
         JFrame tela = new JFrame();
         JPanel painel_de_entrada = new JPanel();
         JPanel painel_escolha = new JPanel();
@@ -76,7 +77,8 @@ public class App {
                     painel_de_entrada.setLocation(painel_de_entrada.getX(), painel_escolha.getHeight()+10);
                     nomeArquivo = arquivoSelecionado.getName();
 
-                    console.setText(Main.abrir());
+                    console.setText((String) Main.abrir().get(0));
+                    TuringMachine tm = (TuringMachine) Main.abrir().get(1);
                     
                     tmPainel.setVisible(true);
                     
@@ -184,8 +186,22 @@ public class App {
 
                 String in_tape = "";
 
-                if( testEntrada(campoEntrada.getText())) {
+                if( testEntrada(campoEntrada.getText()) ) {
+
+                    if( tmPainel.isShowing() ) {
+                        TuringMachine tm = new TuringMachine();
+                        tm = (TuringMachine) Main.abrir().get(1);
+
+                        tm.finite_control(tm, campoEntrada.getText());
+                        System.out.println();
+                    }
+
                     in_tape = campoEntrada.getText();
+
+                } else {
+                    campoEntrada.setText("  Insira a fita  ");
+                    campoEntrada.setForeground(Color.GRAY);
+                    // Talvez enviar Pop-up de aviso
                 }
                  
                 System.out.println("Fita de entrada: " + in_tape);
@@ -214,6 +230,7 @@ public class App {
         JScrollPane scrollPane = new JScrollPane(painel_Pai);
 
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(30);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         // ADD: Tela
