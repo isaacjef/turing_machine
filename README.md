@@ -1,43 +1,32 @@
-# 🚀 Rule 30 - Turing Machine 
-Objetivo: 
-- Desenvolver uma Máquina de Turing teórica que aplica a Regra 30 (Rule30) a uma fita.
-- Desenvolver um código que receba um arquivo JSON representando uma Máquina de Turing, contendo o alfabeto, estados e transições da Máquina. O código também pode receber uma fita (entrada), e através da função de transição da Máquina de Turing convertida, deve devolver um saída.
-- O código deve ser bem estruturado, e as saídas devem estar de acordo com o padrão teórico. Ex: (q0, 0) -> (q1, X, R)    
+# Rule 30 - Turing Machine 
 
-> MAVEN
+A Regra 30 é uma das regras elementares de autômatos celulares introduzidas por Stephen Wolfram em 1983 (Wolfram 1983, 2002). Ela especifica a próxima cor em uma célula, dependendo de sua cor e de suas células vizinhas imediatas. Além da definição formal da Máquina de Turing, sua descrição e diagrama, criamos este código em Java que implementa os mesmos passos da MT proposta. 
+Dependência Maven utilizada: com.googlecode.json-simple.
 
-> Dependência utilizada: com.googlecode.json-simple
+# 📜 Objetivos:
+>     [X] Criar conversor .json da MT teórica;
+>     [X] **Criar classe para para tratar os dados da MT;**
+>     [X] **Criar classe para implementação das propriedades da MT**
+>     [X] **Criar um painel para exibição do programa**
+>     [ ] **c**
 
 <img width="392" height="178" alt="image" src="https://github.com/user-attachments/assets/ba0e3d3f-0db5-4bf6-b270-9edc8118c3ba" />
 
-# 📜 Objetivos:
-    [ ] **Criar conversor .json em MT; **
-    [ ] **Criar classe para leitura das propriedades da Máquina de Turing;**
-    [ ] **Criar método para leitura das fitas, de acordo com a MT**
-    [ ] **c**
-    [ ] **c**
-
-# 💾 Status do prjeto
-> :construction: Projeto finalizado :construction:
-
 # 📦 Disposição do programa
      .
-     ├── conversor_nfa_dfa
+     ├── turing_machine
      │   └── src
      │       └── main
      │           └── java
      |                └── src
-     |                    ├── AutomatoFinito.java
-     |                    ├── DFA.java
-     |                    ├── NFA.java
+     |                    ├── ATM.java
+     |                    ├── App.java
+     |                    ├── TuringMachine.java
      |                    └── Main.java
      ├── target
      ├── README.md
      ├── pom.xml
-     └── exemplo.json
-        ├── blackjack_test.exs
-        └── test_helper.exs
-    
+     └── tm_rule30.json
      .
 
 # 🔧 Principais Funções
