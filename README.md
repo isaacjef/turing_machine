@@ -3,7 +3,7 @@
 A Regra 30 é uma das regras elementares de autômatos celulares introduzidas por Stephen Wolfram em 1983 (Wolfram 1983, 2002). Ela especifica a próxima cor em uma célula, dependendo de sua cor e de suas células vizinhas imediatas.
 
 # 📜 Objetivos:
-    [] **Criar conversor .json em MT; **
+>     [] Criar conversor .json em MT;
     [   ] **Criar classe para leitura das propriedades da Máquina de Turing;**
     [ ] **Criar método para leitura das fitas, de acordo com a MT**
     [ ] **c**
