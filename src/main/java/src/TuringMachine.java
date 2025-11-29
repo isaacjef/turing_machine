@@ -132,28 +132,25 @@ public final class TuringMachine extends ATM {
         Map<String, Map<String, List<String>>> transiction = define_transiction(jsonArray);
 
         while (ipt != 0) {
-
+            String registro = "";
             // (q0, 1) -> ["q1", "1", "L", "#", "R"]
             List<String> tuple = transiction.get(actual_state).get("" + actual_symbol);
-            System.out.printf("(%s,%s) -> ", actual_state, actual_symbol);
+            //System.out.printf("(%s,%s) -> ", actual_state, actual_symbol);
 
             for (int j = 0; j <= 4; j++) {
-                // L -> -1 ; R -> +1 ---- 2 1 2 3; 3 2 3 4; 4 3 4 5; ...
+                // L -> -1 ; R -> +1 ; Ex: ##0##
                 if (tuple.get(2).equals("L")) {
                     i -= 1;
                     actual_state = tuple.get(0);
+                    // #_0## ... ##_## ... ##0_#
                     actual_symbol = input.charAt(i);
                     tuple = transiction.get(actual_state).get("" + actual_symbol);
-
-                    //System.out.printf("L \n(%s,%s) -> ", actual_state, actual_symbol);
                 } else {
                     i += 1;
 
                     actual_state = tuple.get(0);
                     actual_symbol = input.charAt(i);
                     tuple = transiction.get(actual_state).get("" + actual_symbol);
-
-                    //System.out.printf("R \n(%s,%s) -> ", actual_state, actual_symbol);
                 }
 
                 if (actual_state.equals("q6") || actual_state.equals("q13")) {
@@ -162,7 +159,7 @@ public final class TuringMachine extends ATM {
                     output += tuple.get(3);
                 }
             }
-
+            System.out.printf("(%s,%s) -> ", actual_state, actual_symbol);
             System.out.printf("Out: ##%s##", output);
             System.out.print("\n");
             ipt--;
@@ -177,12 +174,12 @@ public final class TuringMachine extends ATM {
 
         StringBuilder text = new StringBuilder();
 
-        //text.append("========= NFA =========\n"); //Adicionar titulo do NFA do for de leitura
+        text.append("========= Máquina de Turing =========\n");
         text.append("Estados: ").append(this.getStates()).append("\n");
         text.append("Símbolos de Entrada: ").append(this.getInput_symbols()).append("\n");
         text.append("Símbolos de fita: ").append(this.getTape_symbols()).append("\n");
         text.append("Transições:\n");
-        text.append("------------------------\n");
+        text.append("-------------------------------------\n");
         /*
          * Aninha todos os pares ESTADO, SIMBOLO → ESTADOS de forma ter uma melhor visualização
          */ //.sorted(Map.Entry.comparingByKey())
@@ -191,13 +188,13 @@ public final class TuringMachine extends ATM {
             entry.getValue().entrySet().stream().sorted(Map.Entry.comparingByKey())
             .forEach(trans -> {
                 String saida = trans.getValue().isEmpty() ? "null" : trans.getValue().toString();
-                text.append(String.format("| (%s, %s) | %s\n", entry.getKey(), trans.getKey(), saida));});
+                text.append(String.format("| (%s, %s) = %s\n", entry.getKey(), trans.getKey(), saida));});
         });
-        text.append("\r------------------------\n");
+        text.append("\r-------------------------------------\n");
         text.append("Estado Inicial: ").append(this.getInitial_state()).append("\n");
         text.append("Símbolo branco: ").append(this.getBlank_symbol()).append("\n");
         text.append("Estados Finais: ").append(this.getEnd_states()).append("\n");        
-        text.append("========================\n\n");
+        text.append("=====================================\n");
 
         return text.toString();
     }
