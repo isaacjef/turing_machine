@@ -27,7 +27,8 @@ Pensando nisso, criamos a seguinte lógica:
 </p>
 Máquina descrita no formato JSON:
 <p align="center">
-     <img width="828" height="180" alt="image" src="https://github.com/user-attachments/assets/d5a25de2-43b3-4bb1-bf09-f5593b4574e5" />
+     <img width="909" height="189" alt="image" src="https://github.com/user-attachments/assets/9c7a9c2c-bb82-4b81-bec3-1e2adc33c5bd" />
+     <img width="185" height="58" alt="image" src="https://github.com/user-attachments/assets/e85df6df-f8f9-472f-9bab-d3e310c23173" />
 </p>
 
 # 📦 Disposição do programa
@@ -51,7 +52,7 @@ Máquina descrita no formato JSON:
 
 <p align="center">
      <img width="695" height="361" alt="image" src="https://github.com/user-attachments/assets/32c90601-b04b-4322-a894-216c21abface" />
-     <img width="1191" height="560" alt="image" src="https://github.com/user-attachments/assets/02d7b86e-6f9f-4184-b459-7918e3e4a6ac" />
+     <img width="1518" height="715" alt="image" src="https://github.com/user-attachments/assets/bf50adae-bf82-470e-9df5-113c1de5be98" />
      <img width="1296" height="597" alt="image" src="https://github.com/user-attachments/assets/b8968732-73a0-4358-88fd-8cc1baea931b" />
 </p>
 
