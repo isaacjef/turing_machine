@@ -22,10 +22,10 @@ Pensando nisso, criamos a seguinte lógica:
 > - O processo é repetido até que o controle finito alcance dois símbolos brancos em sequência e vai para o estado final.
 
 <p align="center">
-<img width="936" height="328" alt="image" src="https://github.com/user-attachments/assets/a1fe8a5f-1657-497f-ba28-7c558c8a9876" />
-<img width="833" height="322" alt="image" src="https://github.com/user-attachments/assets/6770838b-aaa8-46e1-bf58-a96bdec6bbb9" />
-<img width="369" height="88" alt="image" src="https://github.com/user-attachments/assets/7fdea16f-a4a4-4d9b-9b49-850c040fcd7e" />
-<img width="828" height="180" alt="image" src="https://github.com/user-attachments/assets/d5a25de2-43b3-4bb1-bf09-f5593b4574e5" />
+     <img width="1027" height="648" alt="image" src="https://github.com/user-attachments/assets/31c7c52d-7473-4859-a8af-cfc96c724af8" />
+     <img width="369" height="88" alt="image" src="https://github.com/user-attachments/assets/7fdea16f-a4a4-4d9b-9b49-850c040fcd7e" />
+     <img width="758" height="272" alt="image" src="https://github.com/user-attachments/assets/75c1c9d1-2f3e-4ab7-a020-f75db1448d69" />
+     <img width="828" height="180" alt="image" src="https://github.com/user-attachments/assets/d5a25de2-43b3-4bb1-bf09-f5593b4574e5" />
 </p>
 
 # 📦 Disposição do programa
