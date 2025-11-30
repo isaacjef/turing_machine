@@ -47,22 +47,9 @@ Pensando nisso, criamos a seguinte lógica:
 
 # 🔧 Principais Funções
 
-    Main.java
-        → main(String[] args);
-        Função de execução principal do programa;
-        Recebe como entrada o diretório, nome do arquivo json lido e converte em objeto do tipo JSON.
-    
-    NFA.java
-        → NFAfromJSON(JSONObject json);
-        Converte um objeto do tipo JSON em um objeto da classe NFA.
-    
-    DFA.java
-        → DFAfromNFA(NFA nfa);
-        Converte um objeto da classe NFA em um objeto da classe DFA;
-        Inlcui o passo a passo de conversão NFA em um DFA.
-        
-        → DFAtoJSON();
-        Converte um DFA em um JSON;
+     Main.java
+     <img width="695" height="361" alt="image" src="https://github.com/user-attachments/assets/32c90601-b04b-4322-a894-216c21abface" />
+
 
 <img width="806" height="381" alt="image" src="https://github.com/user-attachments/assets/27eb2778-323f-48fb-9a64-34faf2b6c97b" />
 
