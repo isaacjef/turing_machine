@@ -47,9 +47,7 @@ Pensando nisso, criamos a seguinte lógica:
 
 # 🔧 Principais Funções
 
-     Main.java
-     <img width="695" height="361" alt="image" src="https://github.com/user-attachments/assets/32c90601-b04b-4322-a894-216c21abface" />
-
+<img width="695" height="361" alt="image" src="https://github.com/user-attachments/assets/32c90601-b04b-4322-a894-216c21abface" />
 
 <img width="806" height="381" alt="image" src="https://github.com/user-attachments/assets/27eb2778-323f-48fb-9a64-34faf2b6c97b" />
 
