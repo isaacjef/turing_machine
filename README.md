@@ -14,6 +14,8 @@ Dependência Maven utilizada: com.googlecode.json-simple.
 
 # ... Diagrama da Máquina
 
+A máquina foi criada considerando que há 8 combinações possíveis na Regra 30, e dentre elas, notamos uma característica em específico: - a célula do meio quando é 0 "#0#", leva a dois estados 0 e dois 1, o mesmo ocorre com o 1. 
+Pensando nisso, criamos a seguinte lógica: o controle finito lerá a primeira célula (caractere) da entrada, vai para a esquerda e lê o símbolo branco, volta (direita) para a primeira célula, e avança para a direita duas vezes. Por fim, retorna para a esquerda, exatamente uma célula à frente da primeira. O processo é repetido até que o controle finito alcance dois símbolos brancos em sequência.
 <img width="936" height="328" alt="image" src="https://github.com/user-attachments/assets/a1fe8a5f-1657-497f-ba28-7c558c8a9876" />
 <img width="833" height="322" alt="image" src="https://github.com/user-attachments/assets/6770838b-aaa8-46e1-bf58-a96bdec6bbb9" />
 <img width="369" height="88" alt="image" src="https://github.com/user-attachments/assets/7fdea16f-a4a4-4d9b-9b49-850c040fcd7e" />
