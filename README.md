@@ -49,10 +49,11 @@ Máquina descrita no formato JSON:
 
 # 🔧 Principais Classes e Funções
 
-<img width="695" height="361" alt="image" src="https://github.com/user-attachments/assets/32c90601-b04b-4322-a894-216c21abface" />
-
-<img width="1191" height="560" alt="image" src="https://github.com/user-attachments/assets/02d7b86e-6f9f-4184-b459-7918e3e4a6ac" />
-
+<p align="center">
+     <img width="695" height="361" alt="image" src="https://github.com/user-attachments/assets/32c90601-b04b-4322-a894-216c21abface" />
+     <img width="1191" height="560" alt="image" src="https://github.com/user-attachments/assets/02d7b86e-6f9f-4184-b459-7918e3e4a6ac" />
+     <img width="1296" height="597" alt="image" src="https://github.com/user-attachments/assets/b8968732-73a0-4358-88fd-8cc1baea931b" />
+</p>
 
 
 # ✒️ Autores: 
