@@ -21,10 +21,12 @@ Pensando nisso, criamos a seguinte lógica:
 > - Por fim, retorna para a esquerda, exatamente uma célula à frente da primeira.
 > - O processo é repetido até que o controle finito alcance dois símbolos brancos em sequência e vai para o estado final.
 
+<p align="center">
 <img width="936" height="328" alt="image" src="https://github.com/user-attachments/assets/a1fe8a5f-1657-497f-ba28-7c558c8a9876" />
 <img width="833" height="322" alt="image" src="https://github.com/user-attachments/assets/6770838b-aaa8-46e1-bf58-a96bdec6bbb9" />
 <img width="369" height="88" alt="image" src="https://github.com/user-attachments/assets/7fdea16f-a4a4-4d9b-9b49-850c040fcd7e" />
-
+<img width="828" height="180" alt="image" src="https://github.com/user-attachments/assets/d5a25de2-43b3-4bb1-bf09-f5593b4574e5" />
+</p>
 
 # 📦 Disposição do programa
      .
