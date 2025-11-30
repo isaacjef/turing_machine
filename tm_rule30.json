@@ -1,8 +1,9 @@
 {
-    "states": ["q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "q12", "q13", "q14"],
+    "states": ["q0", "q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8", "q9", "q10", "q11", "q12", "q13", "q14", "q15"],
     "input_symbols": ["0", "1"],
     "tape_symbols": ["0", "1", "#"],
     "transiction": [
+        {"initial": "q0", "symbol": "#", "end": "q15", "in_tape": ["#", "R"], "out_tape": ["#", "R"]},
         {"initial": "q0", "symbol": "0", "end": "q8", "in_tape": ["0", "L"], "out_tape": ["#", "R"]},
         {"initial": "q0", "symbol": "1", "end": "q1", "in_tape": ["1", "L"], "out_tape": ["#", "R"]},
         {"initial": "q1", "symbol": "#", "end": "q2", "in_tape": ["#", "R"], "out_tape": ["#", "L"]},
@@ -42,5 +43,5 @@
     ],
     "initial_state": "q0",
     "blank_symbol": "#",
-    "end_states": []
+    "end_states": ["q15"]
 }
