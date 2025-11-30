@@ -45,7 +45,7 @@ Máquina descrita no formato JSON:
      └── tm_rule30.json
      .
 
-# 🔧 Principais Funções
+# 🔧 Principais Classes e Funções
 
 <img width="695" height="361" alt="image" src="https://github.com/user-attachments/assets/32c90601-b04b-4322-a894-216c21abface" />
 
