@@ -20,11 +20,11 @@ Pensando nisso, criamos a seguinte lógica:
 > - Vai para a esquerda e lê o símbolo branco, volta para a primeira célula (direita), e avança para a direita duas vezes.
 > - Por fim, retorna para a esquerda, exatamente uma célula à frente da primeira.
 > - O processo é repetido até que o controle finito alcance dois símbolos brancos em sequência e vai para o estado final.
-
 <p align="center">
-     <img width="1027" height="648" alt="image" src="https://github.com/user-attachments/assets/31c7c52d-7473-4859-a8af-cfc96c724af8" />
-     <img width="369" height="88" alt="image" src="https://github.com/user-attachments/assets/7fdea16f-a4a4-4d9b-9b49-850c040fcd7e" />
      <img width="758" height="272" alt="image" src="https://github.com/user-attachments/assets/75c1c9d1-2f3e-4ab7-a020-f75db1448d69" />
+     <img width="1027" height="648" alt="image" src="https://github.com/user-attachments/assets/31c7c52d-7473-4859-a8af-cfc96c724af8" />
+     <img width="369" height="88" alt="image" src="https://github.com/user-attachments/assets/7fdea16f-a4a4-4d9b-9b49-850c040fcd7e" /> 
+Máquina descrita no formato JSON:
      <img width="828" height="180" alt="image" src="https://github.com/user-attachments/assets/d5a25de2-43b3-4bb1-bf09-f5593b4574e5" />
 </p>
 
