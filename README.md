@@ -24,7 +24,9 @@ Pensando nisso, criamos a seguinte lógica:
      <img width="758" height="272" alt="image" src="https://github.com/user-attachments/assets/75c1c9d1-2f3e-4ab7-a020-f75db1448d69" />
      <img width="1027" height="648" alt="image" src="https://github.com/user-attachments/assets/31c7c52d-7473-4859-a8af-cfc96c724af8" />
      <img width="369" height="88" alt="image" src="https://github.com/user-attachments/assets/7fdea16f-a4a4-4d9b-9b49-850c040fcd7e" /> 
+</p>
 Máquina descrita no formato JSON:
+<p align="center">
      <img width="828" height="180" alt="image" src="https://github.com/user-attachments/assets/d5a25de2-43b3-4bb1-bf09-f5593b4574e5" />
 </p>
 
@@ -49,7 +51,8 @@ Máquina descrita no formato JSON:
 
 <img width="695" height="361" alt="image" src="https://github.com/user-attachments/assets/32c90601-b04b-4322-a894-216c21abface" />
 
-<img width="806" height="381" alt="image" src="https://github.com/user-attachments/assets/27eb2778-323f-48fb-9a64-34faf2b6c97b" />
+<img width="1191" height="560" alt="image" src="https://github.com/user-attachments/assets/02d7b86e-6f9f-4184-b459-7918e3e4a6ac" />
+
 
 
 # ✒️ Autores: 
