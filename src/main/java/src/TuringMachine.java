@@ -240,4 +240,9 @@ public final class TuringMachine extends ATM {
 
         return text.toString();
     }
+
+    public void setStep(List<String> steps) {
+        this.step = steps;
+    }
+
 }

@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
@@ -230,6 +231,7 @@ public class App {
                             // painelGrafico.repaint();
 
                             System.out.println(resultados.getResultadoResumo());
+                            resultados.getTuringMachine().setStep(new ArrayList<>());
                         }
 
                         if ( radioStep.isSelected() ) {
@@ -239,6 +241,7 @@ public class App {
                             
                             textoConsole.setText(resultados.getResultadoSteps());
                             System.out.println(resultados.getResultadoSteps());
+                            resultados.getTuringMachine().setStep(new ArrayList<>());
                         }
 
                         //recalcularEspacos(amostra); //Ainda não faz nada
