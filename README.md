@@ -26,11 +26,6 @@ Pensando nisso, criamos a lógica abaixo:
      <img width="1027" height="648" alt="image" src="https://github.com/user-attachments/assets/31c7c52d-7473-4859-a8af-cfc96c724af8" />
      <img width="369" height="88" alt="image" src="https://github.com/user-attachments/assets/7fdea16f-a4a4-4d9b-9b49-850c040fcd7e" /> 
 </p>
-Máquina descrita no formato JSON:
-<p align="center">
-     <img width="909" height="189" alt="image" src="https://github.com/user-attachments/assets/9c7a9c2c-bb82-4b81-bec3-1e2adc33c5bd" />
-     <img width="185" height="58" alt="image" src="https://github.com/user-attachments/assets/e85df6df-f8f9-472f-9bab-d3e310c23173" />
-</p>
 
 # 📦 Disposição do programa
      .
@@ -61,7 +56,12 @@ Dividimos o desenvolvimento em duas vertentes, Back e Front end.
 </p>
 
 - ## ♻️ Fluxo de execução da classe TuringMachine
+
+Máquina descrita no formato JSON:
+
 <p align="center">
+     <img width="909" height="189" alt="image" src="https://github.com/user-attachments/assets/9c7a9c2c-bb82-4b81-bec3-1e2adc33c5bd" />
+     <img width="185" height="58" alt="image" src="https://github.com/user-attachments/assets/e85df6df-f8f9-472f-9bab-d3e310c23173" />
      <img width="1518" height="715" alt="image" src="https://github.com/user-attachments/assets/bf50adae-bf82-470e-9df5-113c1de5be98" />
      <img width="1296" height="597" alt="image" src="https://github.com/user-attachments/assets/b8968732-73a0-4358-88fd-8cc1baea931b" />
 </p>
