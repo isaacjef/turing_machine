@@ -184,6 +184,7 @@ public class App {
             public void focusGained(FocusEvent e) {
                
                 if(campoEntrada.getText().equals("  Insira a fita  ")) {
+
                     campoEntrada.setText("");
                     campoEntrada.setForeground(Color.BLACK); // Muda a cor para texto real
                 } 
@@ -228,15 +229,14 @@ public class App {
 
                             resultados.setResultadoOutCompleted(resultados.getTuringMachine().finite_control(resultados.getTuringMachine(), 
                             campoEntrada.getText()));
-
+                            grafico1.setDados(resultados.getResultadoOutCompleted());
                             textoConsole.setText(resultados.getResultadoResumo());
 
-                            grafico1.setVisible(true);
                             grafico1.setSize(grafico1.getPreferredSize());
-                            grafico1.setDados(resultados.getResultadoOutCompleted());
                             grafico1.revalidate();
+                            grafico1.repaint();
 
-                            // painelGrafico.revalidate();
+                            painelGrafico.revalidate();
                             // painelGrafico.repaint();
 
                             System.out.println(resultados.getResultadoResumo());
