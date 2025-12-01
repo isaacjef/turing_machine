@@ -50,7 +50,7 @@ Máquina descrita no formato JSON:
 # 🔧 Principais Classes e Funções
 
 <p align="center">
-     <img width="695" height="361" alt="image" src="https://github.com/user-attachments/assets/32c90601-b04b-4322-a894-216c21abface" />
+     <img width="745" height="334" alt="image" src="https://github.com/user-attachments/assets/04a0b0d6-64c7-444a-a267-15ce898a5829" />
      <img width="1518" height="715" alt="image" src="https://github.com/user-attachments/assets/bf50adae-bf82-470e-9df5-113c1de5be98" />
      <img width="1296" height="597" alt="image" src="https://github.com/user-attachments/assets/b8968732-73a0-4358-88fd-8cc1baea931b" />
 </p>
