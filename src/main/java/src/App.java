@@ -3,6 +3,7 @@ package src;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -11,13 +12,16 @@ import java.io.File;
 import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -26,20 +30,33 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class App {
+
+    private static Resultados resultados = new Resultados();
+
     public static void main(String[] args) {
 
+        
+        JRadioButton radioFast = new JRadioButton("Fast");
+        JRadioButton radioStep = new JRadioButton("Step");
+        ButtonGroup grupoModo = new ButtonGroup();
+        JButton botao0 = new JButton("");
         JFrame tela = new JFrame();
         JPanel painel_de_entrada = new JPanel();
         JPanel painel_escolha = new JPanel();
         JPanel painel_Pai = new JPanel();
         JInternalFrame tmPainel = new JInternalFrame();
         JTextArea console = new JTextArea();
+        JTabbedPane abas = new JTabbedPane();
+        JTextArea textoConsole = new JTextArea();
+        JPanel painelConsole = new JPanel();
+        JPanel painelGrafico = new JPanel();
+        JGraficoPixel grafico1 = new JGraficoPixel();
 
         Border leftBorder = BorderFactory.createMatteBorder(1, 1, 2, 1, Color.BLACK); // (top, left, bottom, right, borderColor)
 
         // Configurar painel Pai
         painel_Pai.setLayout(null);
-        painel_Pai.setPreferredSize(new Dimension(600, 2500));
+        painel_Pai.setPreferredSize(new Dimension(600, painel_escolha.getHeight() +10));
 
         // Configuração de painel 2
         Border leftBorder2 = BorderFactory.createMatteBorder(2, 1, 1, 1, Color.BLACK);
@@ -76,11 +93,21 @@ public class App {
                     painel_escolha.setSize(painel_escolha.getWidth(), 975);
                     painel_de_entrada.setLocation(painel_de_entrada.getX(), painel_escolha.getHeight()+10);
                     nomeArquivo = arquivoSelecionado.getName();
+                    abas.setLocation(abas.getX(), painel_de_entrada.getY() + painel_de_entrada.getHeight() + 10);
 
-                    console.setText((String) Main.abrir().get(0));
-                    TuringMachine tm = (TuringMachine) Main.abrir().get(1);
+                    resultados.setResumoTuringmachine((String) Main.abrir().get(0));
+                    resultados.setTuringMachine((TuringMachine) Main.abrir().get(1));
+                    
+
+                    console.setText( resultados.getResumoTuringmachine() );
                     
                     tmPainel.setVisible(true);
+                    painel_de_entrada.setVisible(true);
+                    abas.setVisible(true);
+
+                    // Aumentar tamanho do Painel Pai
+                    painel_Pai.setPreferredSize( new Dimension(painel_Pai.getWidth(), 
+                        tmPainel.getWidth() + painel_de_entrada.getHeight() + painel_escolha.getWidth() + abas.getHeight()) );
                     
                     // arquivoSelecionado.getName()
                     // Nome do arquivo para passar para função que converte o JSON para TM
@@ -91,7 +118,6 @@ public class App {
             }
 
         });
-
         
         // Configuração painel interno
         tmPainel.setLayout(null);
@@ -102,8 +128,8 @@ public class App {
         tmPainel.setVisible(false);
 
         //Configuração area de texto
-        
         console.setBounds(0, 0, tmPainel.getWidth(), tmPainel.getHeight());
+        console.setFont(new Font("Arial", Font.BOLD, 12));
         console.setFocusable(false);
         console.setVisible(true);
         
@@ -118,6 +144,8 @@ public class App {
                 System.out.println("Aviso: O JInternalFrame foi fechado completamente.");
                 painel_escolha.setSize(painel_escolha.getWidth(), 200);
                 painel_de_entrada.setLocation(painel_de_entrada.getX(), painel_escolha.getHeight()+10);
+                painel_de_entrada.setVisible(false);
+                abas.setVisible(false);
 
                 // Remover Maquina de Turing, para carregamento de outra
                 // Equivalente a substituir a entrada da função que converte o JSON para TM
@@ -125,9 +153,10 @@ public class App {
 
         });
 
-        // Configuração de painel 1
+        // Configuração de painel de entrada
         painel_de_entrada.setLayout(null);
         painel_de_entrada.setBounds(100, painel_escolha.getHeight()+10, 400, 90);
+        painel_de_entrada.setVisible(false);
         //painel_escolha.getWidth()+2
         painel_de_entrada.setBorder(leftBorder);
 
@@ -173,8 +202,8 @@ public class App {
             
         });
 
-        // Configuração de botão
-        JButton botao0 = new JButton("");
+
+        // Configuração de botão1
         String textoBotao1 = "|   ENVIAR   →";
         JButton botao1 = new JButton(textoBotao1);
         int posicaoHorizontal = campoEntrada.getHorizontalAlignment() + campoEntrada.getWidth() + labelInfo1.getHorizontalAlignment() + labelInfo1.getWidth();
@@ -188,12 +217,37 @@ public class App {
 
                 if( testEntrada(campoEntrada.getText()) ) {
 
-                    if( tmPainel.isShowing() ) {
-                        TuringMachine tm = new TuringMachine();
-                        tm = (TuringMachine) Main.abrir().get(1);
 
-                        tm.finite_control(tm, campoEntrada.getText());
-                        System.out.println();
+                    if( tmPainel.isShowing() ) {
+
+                        if ( radioFast.isSelected() ) {
+                            // Mostrar tela de resultado rapido
+                            resultados.setResultadoResumo(
+                            resultados.getTuringMachine().finite_control(resultados.getTuringMachine(), 
+                            campoEntrada.getText()) );
+
+                            resultados.setResultadoOutCompleted(resultados.getTuringMachine().finite_control(resultados.getTuringMachine(), 
+                            campoEntrada.getText()));
+
+                            textoConsole.setText(resultados.getResultadoResumo());
+
+                            grafico1.setVisible(true);
+                            grafico1.setSize(grafico1.getPreferredSize());
+                            grafico1.setDados(resultados.getResultadoOutCompleted());
+                            grafico1.revalidate();
+
+                            // painelGrafico.revalidate();
+                            // painelGrafico.repaint();
+
+                            System.out.println(resultados.getResultadoResumo());
+                        }
+
+                        if ( radioStep.isSelected() ) {
+                            // Mostrar tela de resultado em passos
+                        }
+
+                        //recalcularEspacos(amostra); //Ainda não faz nada
+                        
                     }
 
                     in_tape = campoEntrada.getText();
@@ -209,9 +263,52 @@ public class App {
 
         });
 
+        //Configuração caixas de seleção
+        radioFast.setSelected(true);
+        radioFast.setBounds(botao1.getX() + botao1.getWidth() + 10, botao1.getY() - botao1.getHeight()/3, 60, 25);
+        radioStep.setBounds(botao1.getX() + botao1.getWidth() + 10, radioFast.getY() + 20, 60, 30);
+        grupoModo.add(radioFast);
+        grupoModo.add(radioStep);
+
+        //Configuração das abas de resultados
+        abas.setBounds(painel_escolha.getX(), 0, 600, 400);
+        abas.setVisible(false);
+
+        //Configuração do painel de gráfico
+        //painelGrafico.setLayout(null);
+        //painelGrafico.setBounds(null);
+        //painelGrafico.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY));
+        painelGrafico.setBackground(Color.WHITE);
+        
+
+        //Configuração grafico1
+        grafico1.setscale(20);
+        grafico1.setBackground(Color.WHITE);
+        painelGrafico.add(grafico1);
+
+        //Configurações do texto no Console da interface
+        textoConsole.setFocusable(false);
+        textoConsole.setBackground(Color.BLACK);
+        textoConsole.setForeground(Color.WHITE); // Verde Matrix
+        textoConsole.setFont(new java.awt.Font("Monospaced", java.awt.Font.BOLD, 12));
+
+        //Configuração do painel do console
+        painelConsole.setLayout(new BorderLayout());
+
+        //ADD: painel do console
+        painelConsole.add(textoConsole);
+
+        //ADD: painel do gráfico
+        //painelGrafico.add();
+
+        //ADD: painel de abas
+        abas.addTab("Gráfico", painelGrafico);
+        abas.addTab("Console", painelConsole);
+
         //ADD: painel Pai
         painel_Pai.add(painel_de_entrada);
         painel_Pai.add(painel_escolha);
+        painel_Pai.add(abas);
 
         //ADD: painel de entrada
         painel_de_entrada.add(titulo);
@@ -219,6 +316,8 @@ public class App {
         painel_de_entrada.add(botao1);
         painel_de_entrada.add(labelInfo1);
         painel_de_entrada.add(campoEntrada);
+        painel_de_entrada.add(radioFast);
+        painel_de_entrada.add(radioStep);
 
         //ADD: Painel de escolha
         painel_escolha.add(titulo2);
@@ -239,7 +338,7 @@ public class App {
         // Denifições da tela
         tela.setBounds(10, 10, 635, 700);
         tela.setTitle("MÁQUINA DE TURING");
-        tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Encerrar programa quando fechar tela
+        tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tela.setVisible(true);
         
     }
@@ -248,10 +347,16 @@ public class App {
 
     }
 
+    public static void recalcularEspacos(String amostra) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'recalcularEspacos'");
+            }
+
     private static boolean testEntrada(String str) {
         String regex = "[01#]+";
         return Pattern.matches(regex, str);
     }
+
 }
 
 // Para finalizar: https://www.youtube.com/watch?v=Ghb0owCoaEc

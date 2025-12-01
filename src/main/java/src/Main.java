@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.json.simple.JSONArray;
@@ -18,7 +19,6 @@ public class Main {
         String diretorioJson = "tm_rule30.json";
         JSONObject jsonObject = new JSONObject();
         JSONParser parser = new JSONParser();
-        ArrayList<NFA> listaNFA = new ArrayList<>();
 
         /*
          * Pensei de fazer assim pois dessa forma dá para tratar um possivel erro no diretório
@@ -81,10 +81,6 @@ public class Main {
             //});
 
             System.out.print(mt.toString());
-            for (int i = 0; i < listaNFA.size(); i++) {
-                System.out.printf("\n========= NFA %d =========\n", i + 1);
-                System.out.print(listaNFA.get(i));
-            }
 
         } catch (FileNotFoundException f) {
 
@@ -122,5 +118,87 @@ public class Main {
         } finally {
             sc.close();
         }
+    }
+
+    public static List<Object> abrir() {
+        Scanner sc = new Scanner(System.in);
+        String diretorioJson = "tm_rule30.json";
+        JSONObject jsonObject = new JSONObject();
+        JSONParser parser = new JSONParser();
+        List<Object> retorno = new ArrayList<>();
+
+        try {
+            Object objetoJSON = parser.parse(new FileReader(diretorioJson));
+            JSONArray listaMTJsonArray = new JSONArray();
+
+            if (objetoJSON instanceof JSONArray jSONArray) {
+                listaMTJsonArray = jSONArray; 
+            }else if (objetoJSON instanceof JSONObject jSONObject) {
+                listaMTJsonArray.add(jSONObject);
+            }
+
+            // Itera JSONArray e converte em MT
+            for (Object obj : listaMTJsonArray) {
+                jsonObject = (JSONObject) obj;
+                //System.out.println(jsonObject);
+                //NFA nfaExemplo = new NFA();
+
+                //nfaExemplo.NFAfromJSON(jsonObject);
+                //listaTM.add(nfaExemplo);
+            }
+
+            // ----------------------------- TESTES ------------------------------
+            ArrayList<String> transiction = new ArrayList<>((JSONArray) jsonObject.get("transiction"));
+            
+            JSONArray movArray = (JSONArray) jsonObject.get("transiction");
+            TuringMachine mt = new TuringMachine();
+            mt.MTfromJSON(jsonObject);
+
+
+            //List<Object> retorno = new ArrayList<>();
+            retorno.add(mt.toString());
+            retorno.add(mt);
+
+
+            mt.finite_control(movArray, "010101");
+
+            return retorno;
+
+        } catch (FileNotFoundException f) {
+
+            System.out.print("O diretório: \"" + diretorioJson + "\" não foi encontrado.\n"
+                    + "Deseja tentar outro? (S | N): ");
+
+            switch (sc.nextLine().toUpperCase()) {
+                case "S" -> {
+                    //Chamada para recomeçar programa
+                    System.out.print("\nRecomeçando programa...\n");
+                    System.out.println();
+                }
+                case "N" -> {
+                    System.out.print("\n      FIM!         \n");
+                    System.out.println("      ^.^ bye!         ");
+                }
+                default -> {
+                    System.out.print("\nOpção não existente!\n");
+                    System.out.println("      ^.^ bye!         ");
+                    //main(args);
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\nMensagem de erro: " + e.getMessage() + " \nNão é um arquivo de json válido!");
+            System.out.printf("O formato do \"%s\" não segue o padrão estabelecido\n\n", diretorioJson);
+        } catch (IOException e) {
+            System.out.print("Erro de entrada! -> " + e);
+        } catch (ParseException e) {
+            System.out.print("Erro na conversão do arquivo! Arquivo JSON inválido! -> " + e);
+            //} catch (ClassCastException e) {
+            //System.out.print("Erro na conversão do arquivo! Algum campo do arquivo não segue o padrão definido. -> " + e);
+            //}catch (Exception e) {
+            // System.out.print("Não sei qual erro!");
+        } finally {
+            sc.close();
+        }
+        return retorno;
     }
 }

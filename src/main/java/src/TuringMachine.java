@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -167,6 +168,90 @@ public final class TuringMachine extends ATM {
 
         //output = String.format("##%s##", output);
         //System.out.println("Out: " + output);
+    }
+
+    public List<String> finite_control(TuringMachine mt, String input) {
+
+        int i = 2;
+        int ipt = input.length();
+        List<String> saida = new LinkedList<>();
+
+        String output = "" ;
+        input = "##" + input + "##";
+        String actual_state = this.getInitial_state();
+        // A verificação sempre iniciará na posição 2 das strings: ##_...##
+        char actual_symbol = input.charAt(i); // símbolo atual lido na fita de entrada
+
+        Map<String, Map<String, List<String>>> transiction = mt.getTransiction();
+
+        while (ipt != 0) {
+
+            
+            List<String> tuple = transiction.get(actual_state).get("" + actual_symbol);
+            
+
+            for (int j = 0; j <= 4; j++) {
+                
+                if (tuple.get(2).equals("L")) {
+                    i -= 1;
+                    actual_state = tuple.get(0);
+                    actual_symbol = input.charAt(i);
+                    tuple = transiction.get(actual_state).get("" + actual_symbol);
+
+                    
+                } else {
+                    i += 1;
+
+                    actual_state = tuple.get(0);
+                    actual_symbol = input.charAt(i);
+                    tuple = transiction.get(actual_state).get("" + actual_symbol);
+
+                    
+                }
+
+                if (actual_state.equals("q6") || actual_state.equals("q13")) {
+                    output += tuple.get(3);
+                } else if (actual_state.equals("q7") || actual_state.equals("q14")) {
+                    output += tuple.get(3);
+                }
+            }
+
+            //System.out.println("Ref " + output.replace(" ", ""));
+            output = saidaFormatada(input.length()-4, output.replace(" ", ""));
+
+            saida.add(String.format("##%s##", output));
+            ipt--;
+        }
+
+        return saida;
+      
+    }
+
+    private String saidaFormatada(int tamanho, String output) {
+
+        StringBuilder sb = new StringBuilder();
+
+        if (tamanho <= output.length()) {
+            return output;
+        }
+
+        int total = tamanho - output.length();
+        int espacamento = total / 2;
+        int espacamentoDireita = total - espacamento;
+
+        for (int j=0; j<espacamento; j++) {
+            sb.append(" ");
+        }
+
+        sb.append(output);
+
+        for (int j=0; j<espacamentoDireita; j++) {
+            sb.append(" ");
+        }
+
+        //sb = new StringBuilder();
+        return sb.toString();
+
     }
 
         @Override
