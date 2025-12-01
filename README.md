@@ -8,16 +8,15 @@ Dependência Maven utilizada: com.googlecode.json-simple.
 >     [X] **Criar classe para para tratar os dados da MT;**
 >     [X] **Criar classe para implementação das propriedades da MT**
 >     [X] **Criar um painel para exibição do programa**
->     [ ] **c**
-
-<img width="392" height="178" alt="image" src="https://github.com/user-attachments/assets/ba0e3d3f-0db5-4bf6-b270-9edc8118c3ba" />
 
 # 🖥️ Diagrama da Máquina
 
-A máquina foi criada considerando que há 8 combinações possíveis na Regra 30, e dentre elas, notamos uma característica em específico: 
+A máquina foi criada considerando que há 8 combinações possíveis na Regra 30, e aproveitando-se do seguinte padrão: quando a célula do meio é 0 "#0#" ou 1 "#1#", leva a duas saídas "0" e duas "1", respectivamente. 
+<p align="center">
+     <img width="246" height="250" alt="Captura de tela 2025-12-01 000556" src="https://github.com/user-attachments/assets/90de5466-f3a9-4a5d-b39d-033b0dfc1a9f" />
+</p>
 
-- a célula do meio quando é 0 "#0#", leva a dois estados 0 e dois 1, o mesmo ocorre quando a célula é #1#. 
-- Pensando nisso, criamos a seguinte lógica: 
+Pensando nisso, criamos a seguinte lógica: 
 > - O controle finito lerá a primeira célula (caractere) da entrada,
 > - Vai para a esquerda e lê o símbolo branco, volta para a primeira célula (direita), e avança para a direita duas vezes.
 > - Por fim, retorna para a esquerda, exatamente uma célula à frente da primeira.
