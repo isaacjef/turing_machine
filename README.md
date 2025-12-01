@@ -9,6 +9,10 @@ Dependência Maven utilizada: com.googlecode.json-simple.
 >     [X] **Criar classe para implementação das propriedades da MT**
 >     [X] **Criar um painel para exibição do programa**
 
+# 🖍️ Descrição formal da Máquina de Turing
+
+M = ({q0, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15}, {0, 1}, {#, 0, 1}, δ, q0, #, {q15})
+
 # 🖥️ Diagrama da Máquina
 
 A máquina foi criada considerando que há 8 combinações possíveis na Regra 30, e aproveitando-se do seguinte padrão: quando a célula do meio é 0 "#0#" ou 1 "#1#", leva a duas saídas "0" e duas "1". 
