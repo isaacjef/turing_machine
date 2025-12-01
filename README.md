@@ -8,15 +8,16 @@ Dependência Maven utilizada: com.googlecode.json-simple.
 >     [X] **Criar classe para para tratar os dados da MT;**
 >     [X] **Criar classe para implementação das propriedades da MT**
 >     [X] **Criar um painel para exibição do programa**
+>     [ ] **c**
+
+<img width="392" height="178" alt="image" src="https://github.com/user-attachments/assets/ba0e3d3f-0db5-4bf6-b270-9edc8118c3ba" />
 
 # 🖥️ Diagrama da Máquina
 
-A máquina foi criada considerando que há 8 combinações possíveis na Regra 30, e aproveitando-se do seguinte padrão: quando a célula do meio é 0 "#0#" ou 1 "#1#", leva a duas saídas "0" e duas "1", respectivamente. 
-<p align="center">
-     <img width="332" height="159" alt="image" src="https://github.com/user-attachments/assets/7253e016-4fad-46db-a5c0-b7ee82107a8a" />
-</p>
+A máquina foi criada considerando que há 8 combinações possíveis na Regra 30, e dentre elas, notamos uma característica em específico: 
 
-Pensando nisso, criamos a seguinte lógica: 
+- a célula do meio quando é 0 "#0#", leva a dois estados 0 e dois 1, o mesmo ocorre quando a célula é #1#. 
+- Pensando nisso, criamos a seguinte lógica: 
 > - O controle finito lerá a primeira célula (caractere) da entrada,
 > - Vai para a esquerda e lê o símbolo branco, volta para a primeira célula (direita), e avança para a direita duas vezes.
 > - Por fim, retorna para a esquerda, exatamente uma célula à frente da primeira.
@@ -41,8 +42,8 @@ Máquina descrita no formato JSON:
      |                └── src
      |                    ├── ATM.java
      |                    ├── App.java
-     |                    ├── Resultados.java
      |                    ├── JGraficoPixel.java
+     |                    ├── Resultados.java
      |                    ├── TuringMachine.java
      |                    └── Main.java
      ├── target
@@ -50,16 +51,25 @@ Máquina descrita no formato JSON:
      ├── pom.xml
      └── tm_rule30.json
      .
+# 👷 Desenvolvimento
 
-# 🔧 Principais Classes e Funções
+Dividimos o desenvolvimento em duas vertentes, Back e Front end.
+
+- ## 📚 Principais Classes
 
 <p align="center">
-     <img width="305" height="165" alt="image" src="https://github.com/user-attachments/assets/f217dcec-fb53-4513-98c3-f4e849980fc0" />
      <img width="756" height="387" alt="image" src="https://github.com/user-attachments/assets/437e1814-85f7-49c3-8f84-2e7c1937cf6d" />
+</p>
+
+- ## ♻️ Fluxo de execução da classe TuringMachine
+<p align="center">
      <img width="1518" height="715" alt="image" src="https://github.com/user-attachments/assets/bf50adae-bf82-470e-9df5-113c1de5be98" />
      <img width="1296" height="597" alt="image" src="https://github.com/user-attachments/assets/b8968732-73a0-4358-88fd-8cc1baea931b" />
-     <img width="777" height="441" alt="image" src="https://github.com/user-attachments/assets/6aed1f2d-8128-430f-8241-4d176cd311c7" />
+</p>
 
+- ##  ♻️ Fluxo de execução da classe App.java (Front End):
+<p align="center">
+     <img width="777" height="441" alt="image" src="https://github.com/user-attachments/assets/6aed1f2d-8128-430f-8241-4d176cd311c7" />
 </p>
 
 # ✒️ Autores: 
