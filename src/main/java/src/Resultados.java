@@ -9,6 +9,15 @@ public class Resultados {
     private TuringMachine turingMachine;
     private String resultadoResumo;
     private List<String> resultadoOutCompleted;
+    private List<String> resultadoStep;
+
+    public List<String> getResultadoStep() {
+        return resultadoStep;
+    }
+
+    public void setResultadoStep(List<String> resultadoStep) {
+        this.resultadoStep = resultadoStep;
+    }
 
     public Resultados() {
 
@@ -58,7 +67,8 @@ public class Resultados {
 
     }
 
-    public String getResultadoSteps() {
-        return this.getTuringMachine().steps_saida();
+    public void setResultadoStep() {
+        this.resultadoStep = new ArrayList<>();
+        this.resultadoStep = this.getTuringMachine().steps_saida();
     }
 }

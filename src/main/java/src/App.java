@@ -10,6 +10,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
@@ -22,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -50,6 +52,7 @@ public class App {
         JPanel painelConsole = new JPanel();
         JPanel painelGrafico = new JPanel();
         JGraficoPixel grafico1 = new JGraficoPixel();
+        JSlider sliderPassos = new JSlider(JSlider.HORIZONTAL, 0, 0, 0);
 
         Border leftBorder = BorderFactory.createMatteBorder(1, 1, 2, 1, Color.BLACK); // (top, left, bottom, right, borderColor)
 
@@ -87,15 +90,17 @@ public class App {
                 if (retorno == JFileChooser.APPROVE_OPTION) {
                     File arquivoSelecionado = fc.getSelectedFile();
                     
-                    // Aqui você coloca a lógica para ler o arquivo
-                    System.out.println("Arquivo escolhido: " + arquivoSelecionado.getName());
+                    //System.out.println("Arquivo escolhido: " + arquivoSelecionado.getName());
                     painel_escolha.setSize(painel_escolha.getWidth(), 975);
+
+                    //Atualizando posições na tela
                     painel_de_entrada.setLocation(painel_de_entrada.getX(), painel_escolha.getHeight()+10);
+                    sliderPassos.setLocation(sliderPassos.getX(), painel_de_entrada.getY() + painel_de_entrada.getHeight() + 10);
                     nomeArquivo = arquivoSelecionado.getName();
                     abas.setLocation(abas.getX(), painel_de_entrada.getY() + painel_de_entrada.getHeight() + 10);
 
-                    resultados.setResumoTuringmachine((String) Main.abrir().get(0));
-                    resultados.setTuringMachine((TuringMachine) Main.abrir().get(1));
+                    resultados.setResumoTuringmachine((String) Main.abrir(nomeArquivo).get(0));
+                    resultados.setTuringMachine((TuringMachine) Main.abrir(nomeArquivo).get(1));
                     
                     console.setText( resultados.getResumoTuringmachine() );
                     
@@ -125,7 +130,7 @@ public class App {
 
         //Configuração area de texto
         console.setBounds(0, 0, tmPainel.getWidth(), tmPainel.getHeight());
-        console.setFont(new Font("Arial", Font.BOLD, 12));
+        console.setFont(new Font("Arial", Font.BOLD, 14));
         console.setFocusable(false);
         console.setVisible(true);
         
@@ -228,6 +233,12 @@ public class App {
                             grafico1.repaint();
 
                             painelGrafico.revalidate();
+
+                            if (sliderPassos.isVisible()){
+                                sliderPassos.setVisible(false);
+                                abas.setLocation(abas.getX(), abas.getY() - sliderPassos.getHeight());
+                            }
+                            
                             // painelGrafico.repaint();
 
                             System.out.println(resultados.getResultadoResumo());
@@ -238,9 +249,26 @@ public class App {
                             resultados.setResultadoResumo(
                             resultados.getTuringMachine().finite_control(resultados.getTuringMachine(), 
                             campoEntrada.getText()) );
-                            
-                            textoConsole.setText(resultados.getResultadoSteps());
-                            System.out.println(resultados.getResultadoSteps());
+                            resultados.setResultadoStep();
+                            sliderPassos.setVisible(true);
+                            sliderPassos.setLocation(sliderPassos.getX(), painel_de_entrada.getY() + painel_de_entrada.getHeight() + 10);
+                    
+                            abas.setLocation(abas.getX(), painel_de_entrada.getY() + painel_de_entrada.getHeight() + sliderPassos.getHeight() + 10);
+                            //textoConsole.setText(resultados.getResultadoStep().toString());
+
+                            sliderPassos.setMaximum(resultados.getResultadoStep().size() - 1);
+                            sliderPassos.setValue(0);
+                            sliderPassos.setEnabled(true);
+
+                            if (resultados.getResultadoStep().size() < 100) {
+                                sliderPassos.setMajorTickSpacing(1);
+                                sliderPassos.setSnapToTicks(true); // Pula de 1 em 1
+                            } else {
+                                sliderPassos.setMajorTickSpacing(10); // Marca a cada 10 para não poluir
+                                sliderPassos.setSnapToTicks(false);
+    }
+
+                            System.out.println(resultados.getResultadoStep());
                             resultados.getTuringMachine().setStep(new ArrayList<>());
                         }
 
@@ -259,6 +287,40 @@ public class App {
             }
 
         });
+
+        sliderPassos.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
+            public void stateChanged(javax.swing.event.ChangeEvent e) {
+                // Se o usuário estiver arrastando, a gente espera soltar (opcional, mas melhora performance)
+                // Se quiser tempo real, remova o if abaixo e deixe só o conteúdo
+                if (!sliderPassos.getValueIsAdjusting()) { 
+                    
+                    int index = sliderPassos.getValue();
+                    List<String> listaDados = resultados.getResultadoStep();
+
+                    if (listaDados != null && index < listaDados.size()) {
+                        String conteudoDoPasso = listaDados.get(index);
+                        
+                        // --- AQUI ESTÁ A SUBSTITUIÇÃO DO LABEL PELO CONSOLE ---
+                        textoConsole.setText(conteudoDoPasso);
+                        
+                        // Opcional: Rolar para o topo (caso o texto seja longo)
+                        textoConsole.setCaretPosition(0);
+                        
+                        // Opcional: Atualizar o gráfico também para sincronizar tudo!
+                        // grafico1.setDados( ...alguma lógica para pegar só até esse passo... );
+                    }
+                }
+            }
+        });
+
+        //Configuração do slider
+        
+        sliderPassos.setVisible(false);
+        sliderPassos.setEnabled(false);
+        sliderPassos.setPaintTicks(true);
+        sliderPassos.setBounds(painel_de_entrada.getX(), painel_de_entrada.getY(), 400, 30); 
+        painel_Pai.add(sliderPassos);
 
         //Configuração caixas de seleção
         radioFast.setSelected(true);
@@ -286,7 +348,7 @@ public class App {
         textoConsole.setFocusable(false);
         textoConsole.setBackground(Color.BLACK);
         textoConsole.setForeground(Color.WHITE); // Verde Matrix
-        textoConsole.setFont(new java.awt.Font("Monospaced", java.awt.Font.BOLD, 12));
+        textoConsole.setFont(new java.awt.Font("Monospaced", java.awt.Font.BOLD, 20));
 
         //Configuração do painel do console
         painelConsole.setLayout(new BorderLayout());

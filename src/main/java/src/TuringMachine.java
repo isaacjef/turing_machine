@@ -146,14 +146,13 @@ public final class TuringMachine extends ATM {
                 step.add(tuple.get(2)); // direção do movimento
                 step.add(tuple.get(3));
 
-                if (actual_state.equals("q6") || actual_state.equals("q13")) {
+                if ( !tuple.get(3).equals("#") ) {
                     output += tuple.get(3);
-                } else if (actual_state.equals("q7") || actual_state.equals("q14")) {
-                    output += tuple.get(3);
-                }
+                } 
+                
             }
-
-            //System.out.println("Ref " + output.replace(" ", ""));
+            System.out.println("Ref " + output);
+            
             output = saidaFormatada(input.length()-4, output.replace(" ", ""));
 
             saida.add(String.format("##%s##", output));
@@ -189,25 +188,25 @@ public final class TuringMachine extends ATM {
         return sb.toString();
     }
 
-    public String steps_saida() {
-        List<String> steps = this.step;
-        System.out.println(steps.size());
-        StringBuilder sb = new StringBuilder();
+    public List<String> steps_saida() {
+        List<String> stepsFormatado = new ArrayList<>();
+        System.out.println(this.step.size());
+        //StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < steps.size(); i++) {
-            //String r_input = (i%4 == 0) ? steps.get(i) : "";
+        for (int i = 0; i < this.step.size(); i+=4) {
+            StringBuilder sb = new StringBuilder();
+
             // Caractere de entrada | Estado atual | Direção do movimento (Fita 1) | Símbolo escrito na fita de saída (Fita 2)
-            switch (i%4) {
-                case 0 -> sb.append(String.format("Símbolo Atual (F.1): %s | ", steps.get(i)));
-                case 1 -> sb.append(String.format("Estado: %s | ", steps.get(i)));
-                case 2 -> sb.append(String.format("Movimento (F.1): %s | ", steps.get(i)));
-                case 3 -> sb.append(String.format("Símbolo de Saída (F.2): %s \n", steps.get(i)));
-                default -> {
-                }
-            }
+            sb.append("Passo " + (i/4 +1) + ":\n");
+            sb.append(String.format("Símbolo Atual (F.1): %s \n", this.step.get(i)));
+            sb.append(String.format("Estado: %s \n", this.step.get(i+1)));
+            sb.append(String.format("Movimento (F.1): %s \n", this.step.get(i+2)));
+            sb.append(String.format("Símbolo de Saída (F.2): %s \n", this.step.get(i+3)));
+
+            stepsFormatado.add(sb.toString());
         }
 
-        return sb.toString();
+        return stepsFormatado;
     }
 
 

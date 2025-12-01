@@ -147,9 +147,8 @@ public class Main {
         }
     }*/
 
-    public static List<Object> abrir() {
+    public static List<Object> abrir(String diretorioJson) {
         Scanner sc = new Scanner(System.in);
-        String diretorioJson = "tm_rule30.json";
         JSONObject jsonObject = new JSONObject();
         JSONParser parser = new JSONParser();
         List<Object> retorno = new ArrayList<>();
