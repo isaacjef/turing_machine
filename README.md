@@ -8,9 +8,6 @@ Dependência Maven utilizada: com.googlecode.json-simple.
 >     [X] **Criar classe para para tratar os dados da MT;**
 >     [X] **Criar classe para implementação das propriedades da MT**
 >     [X] **Criar um painel para exibição do programa**
->     [ ] **c**
-
-<img width="392" height="178" alt="image" src="https://github.com/user-attachments/assets/ba0e3d3f-0db5-4bf6-b270-9edc8118c3ba" />
 
 # 🖥️ Diagrama da Máquina
 
@@ -57,7 +54,6 @@ Máquina descrita no formato JSON:
      <img width="1518" height="715" alt="image" src="https://github.com/user-attachments/assets/bf50adae-bf82-470e-9df5-113c1de5be98" />
      <img width="1296" height="597" alt="image" src="https://github.com/user-attachments/assets/b8968732-73a0-4358-88fd-8cc1baea931b" />
 </p>
-
 
 # ✒️ Autores: 
 | [<img src="https://avatars.githubusercontent.com/u/99749672?v=4" width=115><br><sub>Gabriel Alexandre</sub>](https://https://github.com/aieFaria) |  [<img src="https://lh3.googleusercontent.com/a-/ALV-UjUSbAUZs8fIDLpE2IxgftQvn59uYcg5JtGjnglwGdLloMGgyXM=s50-c-k-no" width=115><br><sub>Isaac Jerferson</sub>](https://github.com/guilhermeonrails) |  [<img src="https://avatars.githubusercontent.com/u/160502160?v=4" width=115><br><sub>Raislson Bernardo</sub>](https://github.com/alexfelipe) |
