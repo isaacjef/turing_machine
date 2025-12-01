@@ -13,7 +13,7 @@ Dependência Maven utilizada: com.googlecode.json-simple.
 
 A máquina foi criada considerando que há 8 combinações possíveis na Regra 30, e aproveitando-se do seguinte padrão: quando a célula do meio é 0 "#0#" ou 1 "#1#", leva a duas saídas "0" e duas "1", respectivamente. 
 <p align="center">
-     <img width="249" height="252" alt="Captura de tela 2025-12-01 000556" src="https://github.com/user-attachments/assets/1687de7f-7044-429b-81d0-a316b91c3ac8" />
+     <img width="246" height="250" alt="Captura de tela 2025-12-01 000556" src="https://github.com/user-attachments/assets/90de5466-f3a9-4a5d-b39d-033b0dfc1a9f" />
 </p>
 
 Pensando nisso, criamos a seguinte lógica: 
@@ -41,6 +41,8 @@ Máquina descrita no formato JSON:
      |                └── src
      |                    ├── ATM.java
      |                    ├── App.java
+     |                    ├── Resultados.java
+     |                    ├── JGraficoPixel.java
      |                    ├── TuringMachine.java
      |                    └── Main.java
      ├── target
@@ -52,7 +54,7 @@ Máquina descrita no formato JSON:
 # 🔧 Principais Classes e Funções
 
 <p align="center">
-     <img width="745" height="334" alt="image" src="https://github.com/user-attachments/assets/04a0b0d6-64c7-444a-a267-15ce898a5829" />
+     <img width="756" height="387" alt="image" src="https://github.com/user-attachments/assets/437e1814-85f7-49c3-8f84-2e7c1937cf6d" />
      <img width="1518" height="715" alt="image" src="https://github.com/user-attachments/assets/bf50adae-bf82-470e-9df5-113c1de5be98" />
      <img width="1296" height="597" alt="image" src="https://github.com/user-attachments/assets/b8968732-73a0-4358-88fd-8cc1baea931b" />
 </p>
