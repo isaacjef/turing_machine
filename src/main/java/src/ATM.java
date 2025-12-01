@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract  class ATM {
+public abstract class ATM {
 
     private ArrayList<String> states = new ArrayList<>();
     private ArrayList<String> input_symbols = new ArrayList<>();

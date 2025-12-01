@@ -32,10 +32,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class App {
 
     private static Resultados resultados = new Resultados();
+    public static void main(String[] args)  {
 
-    public static void main(String[] args) {
-
-        
         JRadioButton radioFast = new JRadioButton("Fast");
         JRadioButton radioStep = new JRadioButton("Step");
         ButtonGroup grupoModo = new ButtonGroup();
@@ -98,7 +96,6 @@ public class App {
                     resultados.setResumoTuringmachine((String) Main.abrir().get(0));
                     resultados.setTuringMachine((TuringMachine) Main.abrir().get(1));
                     
-
                     console.setText( resultados.getResumoTuringmachine() );
                     
                     tmPainel.setVisible(true);
@@ -114,9 +111,7 @@ public class App {
                 }
 
                 tmPainel.setTitle(nomeArquivo);
-        
             }
-
         });
         
         // Configuração painel interno
@@ -184,7 +179,6 @@ public class App {
             public void focusGained(FocusEvent e) {
                
                 if(campoEntrada.getText().equals("  Insira a fita  ")) {
-
                     campoEntrada.setText("");
                     campoEntrada.setForeground(Color.BLACK); // Muda a cor para texto real
                 } 
@@ -203,7 +197,6 @@ public class App {
             
         });
 
-
         // Configuração de botão1
         String textoBotao1 = "|   ENVIAR   →";
         JButton botao1 = new JButton(textoBotao1);
@@ -217,10 +210,7 @@ public class App {
                 String in_tape = "";
 
                 if( testEntrada(campoEntrada.getText()) ) {
-
-
                     if( tmPainel.isShowing() ) {
-
                         if ( radioFast.isSelected() ) {
                             // Mostrar tela de resultado rapido
                             resultados.setResultadoResumo(
@@ -243,11 +233,15 @@ public class App {
                         }
 
                         if ( radioStep.isSelected() ) {
-                            // Mostrar tela de resultado em passos
+                            resultados.setResultadoResumo(
+                            resultados.getTuringMachine().finite_control(resultados.getTuringMachine(), 
+                            campoEntrada.getText()) );
+                            
+                            textoConsole.setText(resultados.getResultadoSteps());
+                            System.out.println(resultados.getResultadoSteps());
                         }
 
                         //recalcularEspacos(amostra); //Ainda não faz nada
-                        
                     }
 
                     in_tape = campoEntrada.getText();
@@ -280,7 +274,6 @@ public class App {
         //painelGrafico.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.GRAY));
         painelGrafico.setBackground(Color.WHITE);
         
-
         //Configuração grafico1
         grafico1.setscale(20);
         grafico1.setBackground(Color.WHITE);
@@ -324,7 +317,6 @@ public class App {
         painel_escolha.add(botao2);
         painel_escolha.add(tmPainel);
         
-
         // Configuração de painel de rolagem
         JScrollPane scrollPane = new JScrollPane(painel_Pai);
 
@@ -359,4 +351,4 @@ public class App {
 
 }
 
-// Para finalizar: https://www.youtube.com/watch?v=Ghb0owCoaEc
+// Para finalizar: https://www.youtube.com/watch?v=Ghb0owCoaEc*/

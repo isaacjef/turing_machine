@@ -13,13 +13,7 @@ import org.json.simple.JSONObject;
 
 public final class TuringMachine extends ATM {
 
-    //private ArrayList<String> states = new ArrayList<>();
-    //private ArrayList<String> input_symbols = new ArrayList<>();
-    //private ArrayList<String> tape_symbols = new ArrayList<>();
-    //private String initial_state = "";
-    //private String blank_symbol = "";
-    //private ArrayList<String> end_states = new ArrayList<>();
-    //private Map<String, Map<String, List<String>>> transiction = new HashMap<>();
+    List<String> step = new ArrayList<>();
 
     public TuringMachine(ArrayList<String> states,
             ArrayList<String> input_symbols,
@@ -49,7 +43,7 @@ public final class TuringMachine extends ATM {
 
         // Caso de haver garantia na tipagem do json não se faz necessário corrigir
         List<String> chavestestar = Arrays.asList("states", "input_symbols", "tape_symbols", "initial_state", "blank_symbol", "end_states", "transiction");
-
+        
         if (json.keySet().containsAll(chavestestar) && chavestestar.containsAll(json.keySet())) {
             try {
                 setStates(new ArrayList<>((JSONArray) json.get("states")));
@@ -94,7 +88,6 @@ public final class TuringMachine extends ATM {
             tuples.add(end);
             tuples.addAll(input_tape);
             tuples.addAll(output_tape);
-            //System.out.println(tuples);
 
             List<String> movements = new ArrayList<>();
 
@@ -103,11 +96,6 @@ public final class TuringMachine extends ATM {
 
                 if (mov != null && !"null".equals(mov.toString())) {
                     movements.add(mov.toString());
-                    //System.out.print("initial: " + initial + " | symbol: " + simbolo + " ");
-                    //System.out.println("Movement ->" + movements);
-
-                    //if(!this.getStates().contains((String) mov))
-                    //throw new IllegalArgumentException("Estado(s) final(is) não está contido nos Estados do NFA. ");
                 }
             }
 
@@ -116,58 +104,6 @@ public final class TuringMachine extends ATM {
         }
 
         return transiction;
-    }
-
-    // Finite control -> read_write_tape
-    public void finite_control(JSONArray jsonArray, String input) {
-
-        int i = 2;
-        int ipt = input.length();
-
-        String output = "" ;
-        input = "##" + input + "##";
-        String actual_state = this.getInitial_state();
-        // A verificação sempre iniciará na posição 2 das strings: ##_...##
-        char actual_symbol = input.charAt(i); // símbolo atual lido na fita de entrada
-
-        Map<String, Map<String, List<String>>> transiction = define_transiction(jsonArray);
-
-        while (ipt != 0) {
-            String registro = "";
-            // (q0, 1) -> ["q1", "1", "L", "#", "R"]
-            List<String> tuple = transiction.get(actual_state).get("" + actual_symbol);
-            //System.out.printf("(%s,%s) -> ", actual_state, actual_symbol);
-
-            for (int j = 0; j <= 4; j++) {
-                // L -> -1 ; R -> +1 ; Ex: ##0##
-                if (tuple.get(2).equals("L")) {
-                    i -= 1;
-                    actual_state = tuple.get(0);
-                    // #_0## ... ##_## ... ##0_#
-                    actual_symbol = input.charAt(i);
-                    tuple = transiction.get(actual_state).get("" + actual_symbol);
-                } else {
-                    i += 1;
-
-                    actual_state = tuple.get(0);
-                    actual_symbol = input.charAt(i);
-                    tuple = transiction.get(actual_state).get("" + actual_symbol);
-                }
-
-                if (actual_state.equals("q6") || actual_state.equals("q13")) {
-                    output += tuple.get(3);
-                } else if (actual_state.equals("q7") || actual_state.equals("q14")) {
-                    output += tuple.get(3);
-                }
-            }
-            System.out.printf("(%s,%s) -> ", actual_state, actual_symbol);
-            System.out.printf("Out: ##%s##", output);
-            System.out.print("\n");
-            ipt--;
-        }
-
-        //output = String.format("##%s##", output);
-        //System.out.println("Out: " + output);
     }
 
     public List<String> finite_control(TuringMachine mt, String input) {
@@ -185,29 +121,30 @@ public final class TuringMachine extends ATM {
         Map<String, Map<String, List<String>>> transiction = mt.getTransiction();
 
         while (ipt != 0) {
-
-            
             List<String> tuple = transiction.get(actual_state).get("" + actual_symbol);
             
-
+            step.add(actual_symbol + "");
+            step.add(actual_state);
+            step.add(tuple.get(2)); // direção do movimento
+            step.add(tuple.get(3)); // saída escrita na fita 2
+            
             for (int j = 0; j <= 4; j++) {
-                
                 if (tuple.get(2).equals("L")) {
                     i -= 1;
                     actual_state = tuple.get(0);
                     actual_symbol = input.charAt(i);
                     tuple = transiction.get(actual_state).get("" + actual_symbol);
-
-                    
                 } else {
                     i += 1;
-
                     actual_state = tuple.get(0);
                     actual_symbol = input.charAt(i);
                     tuple = transiction.get(actual_state).get("" + actual_symbol);
-
-                    
                 }
+
+                step.add(actual_symbol + "");
+                step.add(actual_state);
+                step.add(tuple.get(2)); // direção do movimento
+                step.add(tuple.get(3));
 
                 if (actual_state.equals("q6") || actual_state.equals("q13")) {
                     output += tuple.get(3);
@@ -224,7 +161,6 @@ public final class TuringMachine extends ATM {
         }
 
         return saida;
-      
     }
 
     private String saidaFormatada(int tamanho, String output) {
@@ -251,10 +187,31 @@ public final class TuringMachine extends ATM {
 
         //sb = new StringBuilder();
         return sb.toString();
-
     }
 
-        @Override
+    public String steps_saida() {
+        List<String> steps = this.step;
+        System.out.println(steps.size());
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < steps.size(); i++) {
+            //String r_input = (i%4 == 0) ? steps.get(i) : "";
+            // Caractere de entrada | Estado atual | Direção do movimento (Fita 1) | Símbolo escrito na fita de saída (Fita 2)
+            switch (i%4) {
+                case 0 -> sb.append(String.format("Símbolo Atual (F.1): %s | ", steps.get(i)));
+                case 1 -> sb.append(String.format("Estado: %s | ", steps.get(i)));
+                case 2 -> sb.append(String.format("Movimento (F.1): %s | ", steps.get(i)));
+                case 3 -> sb.append(String.format("Símbolo de Saída (F.2): %s \n", steps.get(i)));
+                default -> {
+                }
+            }
+        }
+
+        return sb.toString();
+    }
+
+
+    @Override
     public String toString() {
 
         StringBuilder text = new StringBuilder();

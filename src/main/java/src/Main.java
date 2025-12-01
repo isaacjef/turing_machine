@@ -13,22 +13,39 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class Main {
-    @SuppressWarnings("unchecked")
-    public static void main(String[] args) {
+
+    //public static TuringMachine 
+    //String[] args
+    //public static List<Object> abrir() throws IOException, org.json.simple.parser.ParseException {
+    /*public static void main(String[] args) throws IOException, org.json.simple.parser.ParseException {
         Scanner sc = new Scanner(System.in);
         String diretorioJson = "tm_rule30.json";
         JSONObject jsonObject = new JSONObject();
         JSONParser parser = new JSONParser();
 
-        /*
-         * Pensei de fazer assim pois dessa forma dá para tratar um possivel erro no diretório
-         * fora da classe NFA.
-         * Mas também é possivel criar a função dentro da classe NFA passando como parametro o
-         * diretório do .json ao invés do JSONObject.
-         */
+        Object objetoJSON = parser.parse(new FileReader(diretorioJson));
+        JSONArray listaMTJsonArray = new JSONArray();
+        listaMTJsonArray.add(objetoJSON);
+
+        for (Object obj : listaMTJsonArray) {
+            jsonObject = (JSONObject) obj;
+        }
+
+        TuringMachine mt = new TuringMachine();
+        mt.MTfromJSON(jsonObject);
+        //JSONArray movArray = (JSONArray) jsonObject.get("transiction");
+
+        mt.finite_control(mt, "0011001000100");
+        //System.out.println(mt.toString());
+
+        List<Object> retorno = new ArrayList<>();
+        retorno.add(mt.toString());
+        retorno.add(new TuringMachine());
+        //return retorno;
+
         //System.out.print("\nInforme o diretório do JSON: ");
         //diretorioJson = sc.nextLine();
-        try {
+        /*try {
             Object objetoJSON = parser.parse(new FileReader(diretorioJson));
             JSONArray listaMTJsonArray = new JSONArray();
 
@@ -41,9 +58,8 @@ public class Main {
             // Itera JSONArray e converte em MT
             for (Object obj : listaMTJsonArray) {
                 jsonObject = (JSONObject) obj;
-                //System.out.println(jsonObject);
-                //NFA nfaExemplo = new NFA();
 
+                //NFA nfaExemplo = new NFA();
                 //nfaExemplo.NFAfromJSON(jsonObject);
                 //listaNFA.add(nfaExemplo);
             }
@@ -73,14 +89,26 @@ public class Main {
             JSONArray movArray = (JSONArray) jsonObject.get("transiction");
             TuringMachine mt = new TuringMachine();
             mt.MTfromJSON(jsonObject);
-            mt.finite_control(movArray, "000100");
+            //mt.finite_control(movArray, "000100");
 
 
             //transiction.forEach(s -> {
             //    System.out.println(s);
             //});
+            ArrayList<Object> teste = new ArrayList<>();
+            //teste.add("0");
+            //teste.add(mt);
 
             System.out.print(mt.toString());
+<<<<<<< Updated upstream
+=======
+
+            return new ArrayList<Object>(List.of("0", mt));
+            //for (int i = 0; i < listaNFA.size(); i++) {
+               //System.out.printf("\n========= NFA %d =========\n", i + 1);
+                //System.out.print(listaNFA.get(i));
+            //}
+>>>>>>> Stashed changes
 
         } catch (FileNotFoundException f) {
 
@@ -89,10 +117,9 @@ public class Main {
 
             switch (sc.nextLine().toUpperCase()) {
                 case "S" -> {
-                    //Chamada para recomeçar programa
                     System.out.print("\nRecomeçando programa...\n");
                     System.out.println();
-                    main(args);
+                    //main(args);
                 }
                 case "N" -> {
                     System.out.print("\n      FIM!         \n");
@@ -108,17 +135,17 @@ public class Main {
             System.out.println("\nMensagem de erro: " + e.getMessage() + " \nNão é um arquivo de json válido!");
             System.out.printf("O formato do \"%s\" não segue o padrão estabelecido\n\n", diretorioJson);
         } catch (IOException e) {
-            System.out.print("Erro de entrada! -> " + e);
+            System.out.print("Erro de entrada! -> " + e.getMessage());
         } catch (ParseException e) {
             System.out.print("Erro na conversão do arquivo! Arquivo JSON inválido! -> " + e);
-            //} catch (ClassCastException e) {
-            //System.out.print("Erro na conversão do arquivo! Algum campo do arquivo não segue o padrão definido. -> " + e);
-            //}catch (Exception e) {
-            // System.out.print("Não sei qual erro!");
+        } catch (ClassCastException e) {
+            System.out.print("Erro na conversão do arquivo! Algum campo do arquivo não segue o padrão definido. -> " + e);
+        } catch (Exception e) {
+            System.out.print("Generic Exception! + " + e.getMessage());
         } finally {
             sc.close();
         }
-    }
+    }*/
 
     public static List<Object> abrir() {
         Scanner sc = new Scanner(System.in);
@@ -140,51 +167,19 @@ public class Main {
             // Itera JSONArray e converte em MT
             for (Object obj : listaMTJsonArray) {
                 jsonObject = (JSONObject) obj;
-                //System.out.println(jsonObject);
-                //NFA nfaExemplo = new NFA();
-
-                //nfaExemplo.NFAfromJSON(jsonObject);
-                //listaTM.add(nfaExemplo);
             }
-
-            // ----------------------------- TESTES ------------------------------
-            ArrayList<String> transiction = new ArrayList<>((JSONArray) jsonObject.get("transiction"));
             
-            JSONArray movArray = (JSONArray) jsonObject.get("transiction");
             TuringMachine mt = new TuringMachine();
             mt.MTfromJSON(jsonObject);
 
-
-            //List<Object> retorno = new ArrayList<>();
             retorno.add(mt.toString());
             retorno.add(mt);
-
-
-            mt.finite_control(movArray, "010101");
 
             return retorno;
 
         } catch (FileNotFoundException f) {
-
             System.out.print("O diretório: \"" + diretorioJson + "\" não foi encontrado.\n"
-                    + "Deseja tentar outro? (S | N): ");
-
-            switch (sc.nextLine().toUpperCase()) {
-                case "S" -> {
-                    //Chamada para recomeçar programa
-                    System.out.print("\nRecomeçando programa...\n");
-                    System.out.println();
-                }
-                case "N" -> {
-                    System.out.print("\n      FIM!         \n");
-                    System.out.println("      ^.^ bye!         ");
-                }
-                default -> {
-                    System.out.print("\nOpção não existente!\n");
-                    System.out.println("      ^.^ bye!         ");
-                    //main(args);
-                }
-            }
+                + "Deseja tentar outro? (S | N): ");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("\nMensagem de erro: " + e.getMessage() + " \nNão é um arquivo de json válido!");
             System.out.printf("O formato do \"%s\" não segue o padrão estabelecido\n\n", diretorioJson);
@@ -192,10 +187,8 @@ public class Main {
             System.out.print("Erro de entrada! -> " + e);
         } catch (ParseException e) {
             System.out.print("Erro na conversão do arquivo! Arquivo JSON inválido! -> " + e);
-            //} catch (ClassCastException e) {
-            //System.out.print("Erro na conversão do arquivo! Algum campo do arquivo não segue o padrão definido. -> " + e);
-            //}catch (Exception e) {
-            // System.out.print("Não sei qual erro!");
+        } catch (Exception e) {
+            System.out.print("Não sei qual erro!");
         } finally {
             sc.close();
         }

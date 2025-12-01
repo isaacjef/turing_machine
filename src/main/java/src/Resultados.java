@@ -13,7 +13,6 @@ public class Resultados {
     public Resultados() {
 
     }
-    
 
     public String getResumoTuringmachine() {
         return this.resumoTuringmachine;
@@ -39,11 +38,9 @@ public class Resultados {
         this.resultadoOutCompleted = resultadoOutCompleted;
     }
 
-
     public String getResultadoResumo() {
         return this.resultadoResumo;
     }
-
 
     public void setResultadoResumo(String resultadoResumo) {
         this.resultadoResumo = resultadoResumo;
@@ -61,4 +58,7 @@ public class Resultados {
 
     }
 
+    public String getResultadoSteps() {
+        return this.getTuringMachine().steps_saida();
+    }
 }
