@@ -42,6 +42,8 @@ Máquina descrita no formato JSON:
      |                └── src
      |                    ├── ATM.java
      |                    ├── App.java
+     |                    ├── JGraficoPixel.java
+     |                    ├── Resultados.java
      |                    ├── TuringMachine.java
      |                    └── Main.java
      ├── target
@@ -49,15 +51,26 @@ Máquina descrita no formato JSON:
      ├── pom.xml
      └── tm_rule30.json
      .
+# 👷 Desenvolvimento
 
-# 🔧 Principais Classes e Funções
+Dividimos o desenvolvimento em duas vertentes, Back e Front end.
+
+- ## 📚 Principais Classes
 
 <p align="center">
-     <img width="695" height="361" alt="image" src="https://github.com/user-attachments/assets/32c90601-b04b-4322-a894-216c21abface" />
+     <img width="756" height="387" alt="image" src="https://github.com/user-attachments/assets/437e1814-85f7-49c3-8f84-2e7c1937cf6d" />
+</p>
+
+- ## ♻️ Fluxo de execução da classe TuringMachine
+<p align="center">
      <img width="1518" height="715" alt="image" src="https://github.com/user-attachments/assets/bf50adae-bf82-470e-9df5-113c1de5be98" />
      <img width="1296" height="597" alt="image" src="https://github.com/user-attachments/assets/b8968732-73a0-4358-88fd-8cc1baea931b" />
 </p>
 
+- ##  ♻️ Fluxo de execução da classe App.java (Front End):
+<p align="center">
+     <img width="777" height="441" alt="image" src="https://github.com/user-attachments/assets/6aed1f2d-8128-430f-8241-4d176cd311c7" />
+</p>
 
 # ✒️ Autores: 
 | [<img src="https://avatars.githubusercontent.com/u/99749672?v=4" width=115><br><sub>Gabriel Alexandre</sub>](https://https://github.com/aieFaria) |  [<img src="https://lh3.googleusercontent.com/a-/ALV-UjUSbAUZs8fIDLpE2IxgftQvn59uYcg5JtGjnglwGdLloMGgyXM=s50-c-k-no" width=115><br><sub>Isaac Jerferson</sub>](https://github.com/guilhermeonrails) |  [<img src="https://avatars.githubusercontent.com/u/160502160?v=4" width=115><br><sub>Raislson Bernardo</sub>](https://github.com/alexfelipe) |
