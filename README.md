@@ -58,6 +58,8 @@ Máquina descrita no formato JSON:
      <img width="756" height="387" alt="image" src="https://github.com/user-attachments/assets/437e1814-85f7-49c3-8f84-2e7c1937cf6d" />
      <img width="1518" height="715" alt="image" src="https://github.com/user-attachments/assets/bf50adae-bf82-470e-9df5-113c1de5be98" />
      <img width="1296" height="597" alt="image" src="https://github.com/user-attachments/assets/b8968732-73a0-4358-88fd-8cc1baea931b" />
+     <img width="777" height="441" alt="image" src="https://github.com/user-attachments/assets/6aed1f2d-8128-430f-8241-4d176cd311c7" />
+
 </p>
 
 # ✒️ Autores: 
