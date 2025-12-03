@@ -1,13 +1,12 @@
 # Rule 30 - Turing Machine 
 
 A Regra 30 é uma das regras elementares de autômatos celulares introduzidas por Stephen Wolfram em 1983 (Wolfram 1983, 2002). Ela especifica a próxima cor em uma célula, dependendo de sua cor e de suas células vizinhas imediatas. Além da definição formal da Máquina de Turing, sua descrição e diagrama, criamos este código em Java que implementa os mesmos passos da MT proposta. 
-Dependência Maven utilizada: com.googlecode.json-simple.
 
 # 📜 Objetivos:
 >     [X] Criar conversor .json da MT teórica;
->     [X] **Criar classe para para tratar os dados da MT;**
->     [X] **Criar classe para implementação das propriedades da MT**
->     [X] **Criar um painel para exibição do programa**
+>     [X] Criar classe para para tratar os dados da MT;
+>     [X] Criar classe para implementação das propriedades da MT;
+>     [X] Criar um painel para exibição do programa.
 
 # 🖍️ Descrição formal da Máquina de Turing
 
