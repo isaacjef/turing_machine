@@ -74,6 +74,13 @@ Máquina descrita no formato JSON:
      <img width="777" height="441" alt="image" src="https://github.com/user-attachments/assets/6aed1f2d-8128-430f-8241-4d176cd311c7" />
 </p>
 
+- ##  📎 Anexos:
+<p align="center">
+     <img width="680" height="535" alt="image" src="https://github.com/user-attachments/assets/9c3eaeb1-6793-4695-8cc4-7ebc797436b9" />
+     <img width="631" height="820" alt="Captura de tela 2025-12-03 151209" src="https://github.com/user-attachments/assets/bc63d13c-c0ee-44d3-941a-803d17196822" />
+     <img width="632" height="640" alt="Captura de tela 2025-12-03 151216" src="https://github.com/user-attachments/assets/db5aa4a4-7ec1-4f0a-88f2-3314f0ec277c" />
+</p>
+
 # ✒️ Autores: 
 | [<img src="https://avatars.githubusercontent.com/u/99749672?v=4" width=115><br><sub>Gabriel Alexandre</sub>](https://https://github.com/aieFaria) |  [<img src="https://lh3.googleusercontent.com/a-/ALV-UjUSbAUZs8fIDLpE2IxgftQvn59uYcg5JtGjnglwGdLloMGgyXM=s50-c-k-no" width=115><br><sub>Isaac Jerferson</sub>](https://github.com/guilhermeonrails) |  [<img src="https://avatars.githubusercontent.com/u/160502160?v=4" width=115><br><sub>Raislson Bernardo</sub>](https://github.com/alexfelipe) |
 | :---: | :---: | :---: |
